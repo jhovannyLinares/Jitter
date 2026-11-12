@@ -1,0 +1,60 @@
+/* Colores de Jitter según el contrato de la familia (maqueta-app, «Diseño de la familia»).
+   --brand y --accent salen del índigo del ratoncito (propuesta C); cuando llegue el PNG 512 final se
+   muestrean sus tonos y se recalculan. --ok, --warn y --err son semánticos y se quedan.
+   Noche por defecto, día con data-theme='light'. */
+:root {
+  --bg: #15171f;
+  --panel: #1d2029;
+  --bar: #212531;
+  --toolbar: #282c3a;
+  --field: #12141b;
+  --line: #0d0f15;
+  --soft-line: rgba(255, 255, 255, 0.09);
+  --text: #cdd1de;
+  --text-strong: #ffffff;
+  --muted: #979db2;
+  --brand: #9aa4ff;
+  --accent: #4b5bd6;
+  --accent-soft: rgba(120, 134, 255, 0.18);
+  --accent-text: #b4bcff;
+  --on-accent: #ffffff;
+  --link: #8fa0ff;
+  --ok: #4fbf6a;
+  --ok-text: #8ddc9e;
+  --warn: #e0a040;
+  --warn-text: #f0c070;
+  --err: #d9534f;
+  --err-text: #ff8a86;
+  --toast: #262c52;
+  --backdrop: rgba(8, 10, 16, 0.72);
+  --shadow: rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --bg: #f4f5f9;
+  --panel: #ffffff;
+  --bar: #e9ebf2;
+  --toolbar: #e0e3ec;
+  --field: #ffffff;
+  --line: #d0d4e0;
+  --soft-line: rgba(0, 0, 0, 0.14);
+  --text: #363b4d;
+  --text-strong: #131624;
+  --muted: #5c6276;
+  --brand: #3a46b8;
+  --accent: #4352c9;
+  --accent-soft: rgba(67, 82, 201, 0.12);
+  --accent-text: #34409f;
+  --on-accent: #ffffff;
+  --link: #3646b0;
+  --ok: #2e8b3a;
+  --ok-text: #23702e;
+  --warn: #a86b00;
+  --warn-text: #8a5800;
+  --err: #c0322e;
+  --err-text: #b02a26;
+  --toast: #e2e5f8;
+  --backdrop: rgba(20, 24, 40, 0.4);
+  --shadow: rgba(0, 0, 0, 0.18);
+  color-scheme: light;
+}

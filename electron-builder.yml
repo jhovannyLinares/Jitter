@@ -1,0 +1,41 @@
+appId: com.jhovanny.jitter
+productName: Jitter
+copyright: © 2026 Jhovanny Linares
+directories:
+  buildResources: build
+  output: dist
+files:
+  - out/**
+  - package.json
+  # logo de la pantalla de carga e íconos de la bandeja
+  - resources/**
+# Windows carga el binario nativo de koffi desde fuera del asar
+asarUnpack:
+  - resources/**
+  - "**/*.node"
+  - node_modules/koffi/**
+npmRebuild: false
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+nsis:
+  # instalación por usuario, sin permisos de administrador
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Jitter
+  uninstallDisplayName: Jitter
+# endurecimiento del ejecutable: que no sirva de Node para otro programa ni cargue una app fuera del asar
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+  enableEmbeddedAsarIntegrityValidation: true
+  onlyLoadAppFromAsar: true
+  # la interfaz se carga con loadFile (file://): sin este privilegio la ventana principal no llega a mostrarse
+  grantFileProtocolExtraPrivileges: true
+  enableCookieEncryption: true

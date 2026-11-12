@@ -1,0 +1,1070 @@
+<title>Maqueta de Jitter</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+:root {
+  --bg: #15171f;
+  --panel: #1d2029;
+  --bar: #212531;
+  --toolbar: #282c3a;
+  --field: #12141b;
+  --line: #0d0f15;
+  --soft-line: rgba(255, 255, 255, 0.09);
+  --text: #cdd1de;
+  --text-strong: #ffffff;
+  --muted: #979db2;
+  --brand: #9aa4ff;
+  --accent: #4b5bd6;
+  --accent-soft: rgba(120, 134, 255, 0.18);
+  --accent-text: #b4bcff;
+  --on-accent: #ffffff;
+  --link: #8fa0ff;
+  --ok: #4fbf6a;
+  --ok-text: #8ddc9e;
+  --warn: #e0a040;
+  --warn-text: #f0c070;
+  --err: #d9534f;
+  --err-text: #ff8a86;
+  --toast: #262c52;
+  --backdrop: rgba(8, 10, 16, 0.72);
+  --shadow: rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --bg: #f4f5f9;
+  --panel: #ffffff;
+  --bar: #e9ebf2;
+  --toolbar: #e0e3ec;
+  --field: #ffffff;
+  --line: #d0d4e0;
+  --soft-line: rgba(0, 0, 0, 0.14);
+  --text: #363b4d;
+  --text-strong: #131624;
+  --muted: #5c6276;
+  --brand: #3a46b8;
+  --accent: #4352c9;
+  --accent-soft: rgba(67, 82, 201, 0.12);
+  --accent-text: #34409f;
+  --on-accent: #ffffff;
+  --link: #3646b0;
+  --ok: #2e8b3a;
+  --ok-text: #23702e;
+  --warn: #a86b00;
+  --warn-text: #8a5800;
+  --err: #c0322e;
+  --err-text: #b02a26;
+  --toast: #e2e5f8;
+  --backdrop: rgba(20, 24, 40, 0.4);
+  --shadow: rgba(0, 0, 0, 0.18);
+  color-scheme: light;
+  color-scheme: light;
+}
+:root {
+  --font-ui: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'Cascadia Mono', Consolas, monospace;
+  --fs-xs: 11px;   
+  --fs-sm: 12px;   
+  --fs-base: 13px; 
+  --fs-md: 15px;   
+  --fs-lg: 18px;   
+  --fs-xl: 22px;   
+  color-scheme: dark;
+}
+.win * { box-sizing: border-box; }
+.win,
+.win,
+.win { margin: 0; height: 100%; }
+.win { background: var(--bg); color: var(--text); font: var(--fs-base)/1.4 var(--font-ui); -webkit-user-select: none; user-select: none; }
+.win button,
+.win input,
+.win select,
+.win textarea { font-family: inherit; font-size: var(--fs-base); }
+.win input,
+.win select,
+.win textarea { height: 34px; padding: 0 10px; background: var(--field); border: 1px solid var(--soft-line); border-radius: 4px; color: var(--text-strong); outline: none; -webkit-user-select: text; user-select: text; }
+.win textarea { height: auto; padding: 8px 10px; line-height: 1.5; resize: vertical; }
+.win input:focus,
+.win select:focus,
+.win textarea:focus { border-color: var(--accent); }
+.win input:disabled,
+.win select:disabled,
+.win textarea:disabled { opacity: 0.5; }
+.win input[type='checkbox'],
+.win input[type='radio'] { width: 16px; height: 16px; padding: 0; margin: 0; accent-color: var(--accent); cursor: pointer; vertical-align: middle; }
+.win option { background: var(--panel); color: var(--text-strong); }
+.win ::placeholder { color: var(--muted); opacity: 1; }
+.win ::selection { background: var(--accent-soft); color: var(--text-strong); }
+.win :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.win ::-webkit-scrollbar { width: 8px; height: 8px; }
+.win ::-webkit-scrollbar-track,
+.win ::-webkit-scrollbar-corner { background: transparent; }
+.win ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--text-strong) 20%, transparent); border-radius: 4px; }
+.win ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--text-strong) 30%, transparent); }
+.win .mono { font-family: var(--font-mono); }
+.win .strong { color: var(--text-strong); }
+.win .muted { color: var(--muted); }
+.win .row { display: flex; align-items: center; gap: 8px; }
+.win .grow { flex: 1 1 auto; min-width: 0; }
+.win .ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.win .break-all { word-break: break-all; }
+.win .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: currentColor; }
+.win .tone-ok { color: var(--ok); }
+.win .tone-warn { color: var(--warn); }
+.win .tone-err { color: var(--err); }
+.win .tone-off { color: var(--muted); }
+.win .label { color: var(--muted); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.win .label.accent { color: var(--accent-text); letter-spacing: 0; font-size: var(--fs-sm); text-transform: none; }
+.win .hint { color: var(--muted); font-size: var(--fs-sm); }
+.win .link { padding: 0; border: 0; background: transparent; color: var(--link); cursor: pointer; }
+.win .link:hover { text-decoration: underline; }
+.win kbd { padding: 1px 6px; border: 1px solid var(--soft-line); border-bottom-width: 2px; border-radius: 4px; font: var(--fs-xs) var(--font-mono); color: var(--text-strong); }
+.win .btn { height: 32px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--field); color: var(--text-strong); border: 1px solid var(--soft-line); border-radius: 4px; cursor: pointer; white-space: nowrap; }
+.win .btn:hover:not(:disabled) { background: color-mix(in srgb, var(--text-strong) 6%, var(--field)); }
+.win .btn:disabled { opacity: 0.45; cursor: default; }
+.win .btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
+.win .btn.primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 88%, var(--text-strong)); }
+.win .btn.small { height: 26px; padding: 0 10px; font-size: var(--fs-sm); }
+.win .btn.big { height: 38px; padding: 0 22px; font-size: var(--fs-md); }
+.win .btn.danger { background: color-mix(in srgb, var(--err) 15%, transparent); color: var(--err-text); border-color: color-mix(in srgb, var(--err) 40%, transparent); }
+.win .btn.danger-solid { background: var(--err); color: var(--on-accent); border-color: var(--err); font-weight: 600; }
+.win .btn.on { background: var(--accent-soft); border-color: var(--accent); }
+.win .segmented { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--soft-line); border-radius: 4px; background: var(--field); }
+.win .segmented button { height: 26px; padding: 0 10px; border: 0; border-radius: 3px; background: transparent; color: var(--text); cursor: pointer; }
+.win .segmented button.on { background: var(--accent-soft); color: var(--text-strong); font-weight: 600; }
+.win .app { height: 100%; display: flex; flex-direction: column; }
+.win .topbar { height: 34px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: var(--bar); border-bottom: 1px solid var(--line); }
+.win .brand { display: flex; align-items: center; gap: 8px; color: var(--text-strong); font-weight: 600; letter-spacing: 3px; text-transform: uppercase; }
+.win .brand .logo { width: 20px; height: 20px; }
+.win .topbar-status { margin-left: auto; display: flex; align-items: center; gap: 6px; color: var(--muted); }
+.win .menubar { display: flex; align-items: center; gap: 2px; margin-left: 6px; }
+.win .menubar-entry { position: relative; }
+.win .menubar-title { height: 26px; padding: 0 9px; border: 0; border-radius: 4px; background: transparent; color: var(--text); cursor: pointer; }
+.win .menubar-title:hover,
+.win .menubar-title.on { background: color-mix(in srgb, var(--text-strong) 12%, transparent); color: var(--text-strong); }
+.win .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; background: var(--toolbar); border-bottom: 1px solid var(--line); }
+.win .search { flex: 1 1 280px; min-width: 0; height: 32px; }
+.win .body { flex: 1 1 auto; min-height: 0; display: flex; }
+.win .statusbar { height: 26px; flex: none; display: flex; align-items: center; gap: 16px; padding: 0 12px; background: var(--bar); border-top: 1px solid var(--line); color: var(--muted); font-size: var(--fs-sm); }
+.win .statusbar > * { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.win .statusbar-right { margin-left: auto; }
+.win .progress { height: 6px; width: 140px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; flex: none; }
+.win .progress > i { display: block; height: 100%; background: var(--accent); }
+.win .nav { flex: 0 0 240px; background: var(--panel); border-right: 1px solid var(--line); padding: 12px 0; overflow-y: auto; display: flex; flex-direction: column; }
+.win .section-label { padding: 0 14px 8px; color: var(--muted); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.win .nav-item { width: 100%; height: 36px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 14px; border: 0; background: transparent; color: var(--text); cursor: pointer; text-align: left; }
+.win .nav-item:hover { background: color-mix(in srgb, var(--text-strong) 4%, transparent); }
+.win .nav-item.on { background: var(--accent-soft); color: var(--text-strong); box-shadow: inset 3px 0 0 var(--accent); }
+.win .nav-item .count { margin-left: auto; min-width: 16px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.win .nav-divider { height: 1px; margin: 10px 14px; background: var(--soft-line); flex: none; }
+.win .list { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+.win .list-head { padding: 14px 16px 8px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+.win .list-title { color: var(--text-strong); font-size: var(--fs-md); font-weight: 600; }
+.win .list-sub { color: var(--muted); }
+.win .list-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.win .notice { margin: 0 16px 10px; padding: 8px 10px; border-radius: 4px; background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); color: var(--accent-text); font-size: var(--fs-sm); line-height: 1.5; }
+.win .notice.warn { background: color-mix(in srgb, var(--warn) 12%, transparent); border-color: color-mix(in srgb, var(--warn) 40%, transparent); color: var(--warn); }
+.win .table { flex: 1 1 auto; overflow: auto; }
+.win .tr { width: 100%; display: grid; grid-template-columns: var(--cols, 1fr); gap: 12px; align-items: center; min-height: 44px; padding: 0 16px; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--text-strong) 5%, transparent); background: transparent; color: var(--text); text-align: left; cursor: pointer; }
+.win .tr:hover:not(.th) { background: color-mix(in srgb, var(--text-strong) 3%, transparent); }
+.win .tr.on { background: var(--accent-soft); }
+.win .tr.warn { background: color-mix(in srgb, var(--warn) 7%, transparent); }
+.win .tr.err { background: color-mix(in srgb, var(--err) 10%, transparent); }
+.win .tr.th { min-height: 0; padding: 6px 16px; color: var(--muted); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--line); cursor: default; position: sticky; top: 0; background: var(--bg); z-index: 1; }
+.win .tr .num { text-align: right; font-variant-numeric: tabular-nums; }
+.win .tr .name { color: var(--text-strong); }
+.win .tr .sub { display: block; font-size: var(--fs-xs); color: var(--muted); }
+.win .empty { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px 16px; color: var(--muted); line-height: 1.5; text-align: center; }
+.win .empty-logo { width: 180px; height: 180px; opacity: 0.12; }
+.win .empty b { color: var(--text-strong); font-size: var(--fs-md); }
+.win .badge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 10px; font-size: var(--fs-xs); font-weight: 600; white-space: nowrap; background: color-mix(in srgb, var(--text-strong) 8%, transparent); color: var(--muted); }
+.win .badge.ok { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok-text); }
+.win .badge.new { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent-text); }
+.win .badge.warn { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn-text); }
+.win .badge.err { background: color-mix(in srgb, var(--err) 20%, transparent); color: var(--err-text); }
+.win .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; padding: 0 16px 12px; }
+.win .stat { padding: 12px 14px; border: 1px solid var(--soft-line); border-radius: 4px; background: var(--panel); display: flex; flex-direction: column; gap: 2px; }
+.win .stat b { color: var(--text-strong); font-size: var(--fs-xl); font-weight: 600; font-variant-numeric: tabular-nums; }
+.win .stat span { color: var(--muted); font-size: var(--fs-sm); }
+.win .stat.accent b { color: var(--brand); }
+.win .meter { display: grid; grid-template-columns: 90px 1fr 44px; gap: 10px; align-items: center; font-size: var(--fs-sm); }
+.win .meter .progress { width: auto; }
+.win .detail { flex: 0 0 340px; background: var(--panel); border-left: 1px solid var(--line); padding: 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
+.win .detail .section-label { padding: 0; }
+.win .detail-head { display: flex; flex-direction: column; gap: 6px; }
+.win .detail-name { color: var(--text-strong); font-size: var(--fs-md); font-weight: 600; word-break: break-all; }
+.win .value-box { flex: 1 1 140px; min-width: 0; padding: 8px 10px; background: var(--field); border: 1px solid var(--soft-line); border-radius: 4px; font-family: var(--font-mono); color: var(--text-strong); white-space: nowrap; overflow-x: auto; -webkit-user-select: text; user-select: text; }
+.win .kv { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 8px 12px; font-size: var(--fs-sm); line-height: 1.5; margin: 0; }
+.win .kv dt { color: var(--muted); }
+.win .kv dd { margin: 0; min-width: 0; color: var(--text); overflow-wrap: anywhere; }
+.win .field { display: flex; flex-direction: column; gap: 6px; }
+.win .detail-actions { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+.win .detail-actions .btn { flex: 1 1 auto; }
+.win .ctx { position: fixed; z-index: 20; min-width: 160px; padding: 4px 0; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 8px 24px var(--shadow); }
+.win .ctx.menubar-panel { position: absolute; left: 0; top: 30px; min-width: 250px; }
+.win .ctx button { width: 100%; height: 30px; display: flex; align-items: center; padding: 0 14px; border: 0; background: transparent; color: var(--text-strong); text-align: left; white-space: nowrap; cursor: pointer; }
+.win .ctx button:hover:not(:disabled) { background: var(--accent-soft); }
+.win .ctx button:disabled { opacity: 0.4; cursor: default; }
+.win .ctx-key { margin-left: auto; padding-left: 24px; color: var(--muted); }
+.win .ctx-separator { height: 1px; margin: 4px 0; background: var(--soft-line); }
+.win .more-menu { min-width: 240px; }
+.win .ctx button.with-hint { height: auto; padding: 6px 14px; flex-direction: column; align-items: flex-start; gap: 1px; white-space: normal; }
+.win .ctx button.with-hint small { color: var(--muted); font-size: var(--fs-xs); }
+.win .file-line { display: flex; flex-direction: column; min-width: 0; }
+.win .file-line .file-name { color: var(--text-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.win .file-line .file-folder { color: var(--muted); font-size: var(--fs-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: left; }
+.win .file-line .sub { display: block; }
+.win .file-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; min-height: 40px; }
+.win .file-row .size { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.win .icon-btn { width: 26px; height: 26px; flex: none; display: inline-grid; place-items: center; padding: 0; border: 0; border-radius: 4px; background: transparent; color: var(--text); cursor: pointer; }
+.win .icon-btn:hover,
+.win .icon-btn.on { background: var(--accent-soft); color: var(--text-strong); }
+.win .icon-btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+.win .row-acts { display: inline-flex; gap: 2px; align-items: center; opacity: 0; transition: opacity 0.12s; }
+.win .tr:hover .row-acts,
+.win .tr:focus-within .row-acts,
+.win .file-row:hover .row-acts,
+.win .file-row:focus-within .row-acts { opacity: 1; }
+.win .value-line { display: flex; gap: 6px; align-items: baseline; min-width: 0; }
+.win .value-line > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.win .link-btn { padding: 0; border: 0; background: transparent; color: var(--link); cursor: pointer; white-space: nowrap; font-size: var(--fs-sm); }
+.win .value-full { margin-top: 4px; padding: 6px 8px; border-radius: 3px; background: var(--bg); font: var(--fs-xs)/1.4 var(--font-mono); word-break: break-all; max-height: 96px; overflow: auto; -webkit-user-select: text; user-select: text; }
+.win .col-table .tr { min-width: var(--table-min, 100%); }
+.win :where(.col-table) .tr { background-color: var(--bg); }
+.win :where(.block) :where(.col-table) .tr { background-color: var(--panel); }
+.win .col-th { position: relative; display: flex; align-items: center; min-width: 0; }
+.win .col-th.num { justify-content: flex-end; }
+.win .col-td { min-width: 0; overflow: hidden; }
+.win .col-grip { position: absolute; z-index: 2; top: -6px; bottom: -6px; right: -7px; width: 8px; cursor: col-resize; border-right: 2px solid var(--soft-line); }
+.win .col-grip:hover { border-right-color: var(--accent); }
+.win .col-tail { position: sticky; right: 0; display: flex; justify-content: flex-end; align-items: center; gap: 4px; min-width: 0; padding-left: 6px; background: inherit; }
+.win .ctx.cols-panel { min-width: 240px; padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+.win .cols-panel label { display: flex; gap: 8px; align-items: center; padding: 4px 8px; border-radius: 3px; cursor: pointer; color: var(--text-strong); }
+.win .cols-panel label:hover { background: var(--accent-soft); }
+.win .cols-panel small { margin-left: auto; color: var(--muted); font-size: var(--fs-xs); }
+.win .cols-title { padding: 4px 8px 6px; color: var(--text-strong); }
+.win .cols-panel .hint { padding: 0 8px; }
+.win .ctx.cols-panel .link-btn { width: auto; height: auto; padding: 4px 8px; color: var(--link); }
+.win .toast { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--toast); border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); border-radius: 6px; color: var(--text-strong); box-shadow: 0 8px 24px var(--shadow); z-index: 30; }
+.win .backdrop { position: fixed; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 20px; background: var(--backdrop); }
+.win .dialog { width: 100%; max-width: 480px; max-height: 100%; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 12px 40px var(--shadow); }
+.win .dialog.wide { max-width: 620px; }
+.win .dialog-head { display: flex; align-items: center; gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.win .dialog-title { color: var(--text-strong); font-size: var(--fs-md); font-weight: 600; }
+.win .dialog-x { margin-left: auto; border: 0; background: transparent; color: var(--muted); font-size: var(--fs-lg); cursor: pointer; }
+.win .dialog-body { padding: 18px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; line-height: 1.5; }
+.win .dialog-foot { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--line); }
+.win .warn-box { padding: 10px 12px; border-radius: 4px; background: color-mix(in srgb, var(--warn) 12%, transparent); border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent); color: var(--text-strong); }
+.win .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.win .chip { height: 26px; padding: 0 10px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--soft-line); border-radius: 13px; background: transparent; color: var(--text); cursor: pointer; font-size: var(--fs-sm); }
+.win .chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--text-strong); font-weight: 600; }
+.win .about-head { display: flex; gap: 14px; align-items: center; }
+.win .about-head .logo { width: 64px; height: 64px; }
+.win .about-name { color: var(--text-strong); font-size: var(--fs-lg); font-weight: 600; letter-spacing: 3px; text-transform: uppercase; }
+.win .about-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.win .about-table th { text-align: left; padding: 10px 0 4px; color: var(--muted); font-size: var(--fs-xs); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.win .about-table td { padding: 4px 0; border-bottom: 1px solid color-mix(in srgb, var(--text-strong) 5%, transparent); vertical-align: top; }
+.win .about-table td + td { text-align: right; color: var(--muted); }
+</style>
+<style>
+/* Página de la maqueta (plano técnico): cajetín, índice, láminas, tableros, línea de tiempo, flujos, marco de ventana
+   y bandeja de Windows. Usa los tokens del contrato de la familia (los de la app, que el generador inyecta), así la
+   página se ve en los colores de cada app sin definir uno propio. Todas las clases llevan el prefijo mq- para no
+   chocar con las de la app. */
+:root {
+  --mq-line: color-mix(in srgb, var(--text-strong) 14%, transparent);
+  --mq-grid: color-mix(in srgb, var(--accent) 6%, transparent);
+  --mq-sans: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+  --mq-mono: 'Cascadia Mono', Consolas, monospace;
+}
+/* el logo, uno por tema, embebido una sola vez y usado como fondo: <span class="mq-logo" style="width:…;height:…"> */
+:root { --mq-logo: url("data:image/png;base64,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"); }
+:root[data-theme='light'] { --mq-logo: url("data:image/png;base64,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"); }
+.mq-logo { display: inline-block; flex: none; background: var(--mq-logo) center / contain no-repeat; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 var(--mq-sans);
+  background-image: linear-gradient(var(--mq-grid) 1px, transparent 1px), linear-gradient(90deg, var(--mq-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.mq-page { max-width: 1320px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 40px; }
+.mq-page :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mq-page h1, .mq-page h2, .mq-page h3 { color: var(--text-strong); }
+.mq-page code, .mq-mono { font-family: var(--mq-mono); font-size: 0.88em; }
+.mq-btn, .mq-theme button, .mq-tabs button { font: inherit; cursor: pointer; }
+
+/* cajetín e índice */
+.mq-masthead { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 18px 20px; border: 1px solid var(--mq-line); border-radius: 12px; background: var(--panel); }
+.mq-masthead .mq-logo { width: 72px; height: 72px; }
+.mq-masthead h1 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; }
+.mq-masthead p { margin: 4px 0 0; color: var(--muted); max-width: 66ch; }
+.mq-stamp { display: grid; grid-template-columns: auto auto; gap: 2px 14px; margin: 0; border-left: 1px solid var(--mq-line); padding-left: 18px; }
+.mq-stamp dt { color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-size: 10px; font-weight: 700; align-self: center; }
+.mq-stamp dd { margin: 0; font-family: var(--mq-mono); font-size: 12px; color: var(--text-strong); }
+.mq-toc { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mq-toc a { padding: 6px 12px; border: 1px solid var(--mq-line); border-radius: 999px; color: var(--text); text-decoration: none; background: var(--panel); font-size: 13px; }
+.mq-toc a:hover { border-color: var(--accent); color: var(--text-strong); }
+.mq-theme { margin-left: auto; display: flex; gap: 4px; padding: 3px; border: 1px solid var(--mq-line); border-radius: 999px; background: var(--panel); }
+.mq-theme button { border: 0; background: transparent; color: var(--text); padding: 3px 12px; border-radius: 999px; font-size: 13px; }
+.mq-theme button.on { background: var(--accent-soft); color: var(--text-strong); font-weight: 600; }
+
+/* lámina */
+.mq-sheet { display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 16px; }
+.mq-sheet-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; border-bottom: 2px solid var(--text-strong); padding-bottom: 8px; }
+.mq-no { font-family: var(--mq-mono); font-size: 12px; color: var(--accent-text); font-weight: 700; }
+.mq-sheet-head h2 { margin: 0; font-size: 20px; font-weight: 600; text-wrap: balance; }
+.mq-seal { font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 1px solid currentColor; }
+.mq-seal.built { color: var(--ok-text); }
+.mq-seal.approved { color: var(--accent-text); }
+.mq-seal.proposed { color: var(--warn-text); }
+.mq-src { margin-left: auto; font-family: var(--mq-mono); font-size: 11px; color: var(--muted); }
+.mq-lede { margin: 0; color: var(--muted); max-width: 80ch; }
+.mq-board { padding: 18px; border: 1px solid var(--mq-line); border-radius: 12px; background: var(--panel); display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.mq-board h3 { margin: 0; font-size: 14px; font-weight: 600; }
+.mq-note { margin: 0; font-size: 12px; color: var(--muted); }
+.mq-cap { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.mq-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.mq-three { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 16px; }
+.mq-table-scroll { overflow-x: auto; }
+.mq-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.mq-table th, .mq-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--mq-line); vertical-align: top; }
+.mq-table th { font-size: 11px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+.mq-btn { height: 34px; padding: 0 14px; border: 1px solid var(--mq-line); border-radius: 6px; background: transparent; color: var(--text-strong); font-size: 13px; }
+.mq-btn:hover { border-color: var(--accent); }
+.mq-btn.primary { border: 0; background: var(--accent); color: var(--on-accent); font-weight: 600; }
+.mq-btn.small { height: 30px; padding: 0 12px; }
+.mq-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.mq-tabs button { border: 1px solid var(--mq-line); background: transparent; color: var(--text); padding: 4px 12px; border-radius: 999px; font-size: 13px; }
+.mq-tabs button.on { border-color: var(--accent); background: var(--accent-soft); color: var(--text-strong); font-weight: 600; }
+.mq-new { outline: 2px dashed var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (max-width: 860px) {
+  .mq-two { grid-template-columns: minmax(0, 1fr); }
+  .mq-masthead { grid-template-columns: auto minmax(0, 1fr); }
+  .mq-stamp { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--mq-line); padding: 10px 0 0; }
+}
+
+/* lámina 1: identidad */
+.mq-sizes { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+.mq-sizes figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.mq-sizes figcaption { font-family: var(--mq-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.mq-taskbar { display: flex; align-items: center; gap: 4px; padding: 6px 10px; border-radius: 8px; background: var(--bar); border: 1px solid var(--mq-line); width: fit-content; max-width: 100%; }
+.mq-slot { width: 40px; height: 36px; display: grid; place-items: center; border-radius: 6px; position: relative; }
+.mq-slot.on { background: var(--accent-soft); }
+.mq-slot.on::after { content: ""; position: absolute; bottom: 2px; width: 14px; height: 3px; border-radius: 2px; background: var(--accent); }
+.mq-ghost { width: 22px; height: 22px; border-radius: 5px; background: var(--mq-line); }
+.mq-uses { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 14px; margin: 0; font-size: 13px; }
+.mq-uses dt { font-family: var(--mq-mono); font-size: 12px; color: var(--text-strong); }
+.mq-uses dd { margin: 0; color: var(--muted); }
+.mq-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); gap: 8px; }
+.mq-sw { display: flex; align-items: center; gap: 10px; padding: 6px; border: 1px solid var(--mq-line); border-radius: 8px; min-width: 0; }
+.mq-sw i { width: 34px; height: 34px; border-radius: 6px; flex-shrink: 0; border: 1px solid var(--mq-line); }
+.mq-sw b { display: block; font-size: 12px; color: var(--text-strong); font-weight: 600; font-family: var(--mq-mono); }
+.mq-sw span { font-size: 11px; color: var(--muted); }
+.mq-type { display: flex; gap: 24px; flex-wrap: wrap; align-items: baseline; }
+.mq-type .big { font-size: 22px; font-weight: 600; letter-spacing: 6px; color: var(--text-strong); text-transform: uppercase; }
+/* lámina 1: la escala tipográfica, un renglón por token con su muestra */
+.mq-scale { width: 100%; margin-top: 12px; border-collapse: collapse; }
+.mq-scale th { text-align: left; padding: 6px 10px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--line); }
+.mq-scale td { padding: 6px 10px; border-bottom: 1px solid var(--line); color: var(--text); vertical-align: baseline; }
+.mq-scale td:nth-child(3) { color: var(--text-strong); }
+
+/* lámina 2: pantalla de carga y arranque */
+.mq-splash-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 720px) { .mq-splash-wrap { grid-template-columns: minmax(0, 1fr); justify-items: center; } }
+.mq-splash { width: 260px; height: 480px; max-width: 100%; border-radius: 4px; background: var(--bg); box-shadow: 0 18px 40px var(--shadow); border: 1px solid var(--mq-line); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; position: relative; overflow: hidden; }
+.mq-splash .mq-logo { width: 170px; height: 170px; animation: mq-float 2.6s ease-in-out infinite; }
+@keyframes mq-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.mq-splash h4 { margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 6px; color: var(--text-strong); text-transform: uppercase; }
+.mq-splash p { margin: 0; font-size: 13px; color: var(--muted); }
+.mq-splash .dims { position: absolute; bottom: 8px; font-family: var(--mq-mono); font-size: 10px; color: var(--muted); }
+.mq-splash.closing { animation: mq-close 0.45s ease forwards; }
+@keyframes mq-close { to { opacity: 0; transform: scale(0.97); } }
+.mq-timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.mq-timeline li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 10px 0; border-top: 1px solid var(--mq-line); }
+.mq-timeline li:first-child { border-top: 0; }
+.mq-n { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 700 11px var(--mq-mono); background: var(--accent-soft); color: var(--text-strong); }
+.mq-timeline li.lit .mq-n { background: var(--accent); color: var(--on-accent); }
+.mq-timeline b { display: block; font-size: 13px; color: var(--text-strong); font-weight: 600; }
+.mq-timeline span { font-size: 12px; color: var(--muted); }
+
+/* lámina 3: flujos */
+.mq-legend { display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px; align-items: center; }
+.mq-flows { display: flex; flex-direction: column; gap: 10px; }
+.mq-flow { display: grid; grid-template-columns: 190px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 14px; border: 1px solid var(--mq-line); border-radius: 10px; background: var(--panel); }
+.mq-who { display: flex; flex-direction: column; gap: 2px; }
+.mq-who b { font-size: 13px; color: var(--text-strong); font-weight: 600; }
+.mq-who span { font-size: 11px; color: var(--muted); }
+.mq-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+.mq-step { padding: 4px 10px; border-radius: 6px; border: 1px solid var(--mq-line); background: var(--bg); font-size: 12px; color: var(--text); }
+.mq-step.screen { border-color: var(--accent); color: var(--text-strong); font-weight: 600; }
+.mq-step.sys { border-style: dashed; color: var(--muted); }
+.mq-step.own { border-color: var(--ok); color: var(--ok-text); }
+.mq-step.future { border-style: dotted; color: var(--accent-text); }
+.mq-arrow { color: var(--muted); font-size: 12px; }
+@media (max-width: 760px) { .mq-flow { grid-template-columns: minmax(0, 1fr); } }
+
+/* lámina 4: marco de ventana de Windows. Lo que en la app va fixed, aquí se ancla a la ventana. */
+.mq-proto-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.mq-tag { margin-left: auto; font-size: 11px; color: var(--muted); padding: 3px 10px; border: 1px dashed var(--mq-line); border-radius: 999px; }
+.mq-window-scroll { overflow-x: auto; border-radius: 10px; }
+.mq-window { min-width: 1100px; border: 1px solid var(--mq-line); border-radius: 10px; overflow: hidden; box-shadow: 0 18px 40px var(--shadow); background: var(--bg); }
+.mq-titlebar { display: flex; align-items: center; gap: 8px; height: 32px; padding-left: 12px; background: var(--bar); border-bottom: 1px solid var(--line); font-size: 12px; color: var(--text); }
+.mq-titlebar .mq-logo { width: 16px; height: 16px; }
+.mq-titlebar .ctl { margin-left: auto; display: flex; height: 100%; }
+.mq-titlebar .ctl span { width: 46px; display: grid; place-items: center; color: var(--muted); font-size: 12px; }
+.win { position: relative; height: 720px; overflow: hidden; }
+.win .ctx:not(.menubar-panel), .win .toast, .win .backdrop { position: absolute; }
+.win.mq-static { height: auto; overflow: visible; }
+.win.mq-static .backdrop { position: static; padding: 0; background: transparent; }
+
+/* lámina 5: estados */
+.mq-states { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 16px; }
+.mq-state { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.mq-why { font-size: 12px; color: var(--muted); margin: 0; }
+.mq-state .win { border: 1px solid var(--mq-line); border-radius: 8px; background: var(--bg); }
+
+/* ayuda: escenario donde se ve un diálogo suelto */
+.mq-help-stage { display: flex; justify-content: center; padding: 22px; border-radius: 10px; background: var(--backdrop); min-height: 420px; align-items: flex-start; }
+
+/* bandeja y avisos de Windows: no son de la app, se dibujan con los tokens de la página */
+.mq-tray-stage { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; padding: 16px; border-radius: 10px; background: var(--bg); border: 1px solid var(--mq-line); }
+.mq-tray-menu { min-width: 220px; padding: 4px; border-radius: 8px; background: var(--panel); border: 1px solid var(--mq-line); box-shadow: 0 8px 24px var(--shadow); display: flex; flex-direction: column; }
+.mq-tray-menu span { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 4px; font-size: 13px; color: var(--text-strong); }
+.mq-tray-menu span:first-child { font-weight: 600; }
+.mq-tray-menu span.off { color: var(--muted); }
+.mq-tray-menu hr { width: 100%; margin: 4px 0; border: 0; border-top: 1px solid var(--mq-line); }
+.mq-tray-bar { display: flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; background: var(--bar); border: 1px solid var(--mq-line); font-size: 12px; color: var(--text); }
+.mq-tray-bar .mq-slot { width: 30px; height: 30px; }
+.mq-tray-bar .clock { padding-left: 8px; font-variant-numeric: tabular-nums; text-align: right; line-height: 1.3; }
+.mq-winnote { width: min(364px, 100%); padding: 12px 14px; border-radius: 8px; background: var(--panel); border: 1px solid var(--mq-line); box-shadow: 0 8px 24px var(--shadow); display: flex; flex-direction: column; gap: 6px; }
+.mq-winnote header { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.mq-winnote b { color: var(--text-strong); font-size: 14px; font-weight: 600; }
+.mq-winnote p { margin: 0; font-size: 13px; color: var(--text); }
+.mq-winnote .acts { display: flex; gap: 8px; }
+
+/* hueco del logo: todavía no hay logo del diseñador */
+.mq-logo { outline: 1px dashed var(--muted); outline-offset: -1px; border-radius: 22%; }
+/* propio de esta app (irá a su styles.css): ventana chica, botón de encendido, filas de horario */
+#app { width: 440px; height: 600px; }
+.win .view { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.win .view-tabs { justify-content: center; }
+.win .power-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding-top: 6px; }
+.win .power { position: relative; width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--soft-line); background: var(--field); color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: border-color 0.2s, color 0.2s, box-shadow 0.2s; }
+.win .power:hover { border-color: color-mix(in srgb, var(--text-strong) 30%, transparent); }
+.win .power.on { border-color: var(--ok); color: var(--ok); box-shadow: 0 0 0 8px color-mix(in srgb, var(--ok) 14%, transparent); }
+.win .power.on::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--ok); animation: pr-ring 2.4s ease-out infinite; }
+.win .power.wait { border-style: dashed; }
+.win .power.paused { border-color: var(--warn); color: var(--warn); }
+.win .power.err { border-color: var(--err); color: var(--err); }
+.win .power.small { width: 76px; height: 76px; cursor: default; }
+.win .power.small svg { width: 32px; height: 32px; }
+@keyframes pr-ring { from { opacity: 0.7; transform: scale(1); } to { opacity: 0; transform: scale(1.35); } }
+@media (prefers-reduced-motion: reduce) { .win .power.on::after { animation: none; opacity: 0; } }
+.win .power-label { color: var(--text-strong); font-size: var(--fs-md); font-weight: 600; }
+.win .power-wrap .hint { max-width: 330px; line-height: 1.5; }
+.win .setting { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border: 1px solid var(--soft-line); border-radius: 4px; background: var(--panel); }
+.win .setting h4 { margin: 0; color: var(--text-strong); font-size: var(--fs-base); font-weight: 600; }
+.win .check { display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; cursor: pointer; }
+.win .check input { margin-top: 1px; }
+.win .check small { display: block; color: var(--muted); font-size: var(--fs-sm); }
+.win .inline-num { width: 52px; height: 26px; padding: 0 6px; text-align: center; }
+.win .sched-row { display: grid; grid-template-columns: 112px 1fr auto 1fr; gap: 8px; align-items: center; }
+.win .sched-row input[type='time'] { height: 28px; padding: 0 6px; min-width: 0; }
+.win .sched-row.off { opacity: 0.45; }
+.win .stats { padding: 0; }
+.win .notice { margin: 0; }
+.win .kbd-line { display: flex; gap: 4px; align-items: center; }
+.mq-states .win { width: 100%; padding: 16px; background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.mq-static .dialog { max-width: 100%; }
+.mq-scale td:first-child { white-space: nowrap; }
+/* lámina 1: propuestas de ícono (ratón); al elegir una, deja de verse el hueco punteado */
+.mq-has-logo .mq-logo { outline: none; border-radius: 0; }
+.mq-icon-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.mq-icon-opt { all: unset; box-sizing: border-box; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: var(--panel); }
+.mq-icon-opt:hover { border-color: var(--muted); }
+.mq-icon-opt:focus-visible { outline: 2px solid var(--accent); }
+.mq-icon-opt.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.mq-icon-opt b { color: var(--text-strong); }
+.mq-icon-opt p { margin: 0; color: var(--muted); font-size: var(--fs-sm); line-height: 1.45; }
+.mq-icon-row { display: flex; align-items: flex-end; gap: 14px; }
+.mq-icon-row img { display: block; }
+.mq-icon-row .tray { padding: 6px; border-radius: 4px; background: var(--bar); }
+</style>
+
+<main class="mq-page">
+  <header class="mq-masthead">
+    <span class="mq-logo" style="width:72px;height:72px" role="img" aria-label="Logo de Jitter"></span>
+    <div>
+      <h1>Jitter</h1>
+      <p>Lo construido en <code>src/renderer</code>, versión 0.1.0: una app de bandeja que simula actividad cada pocos minutos para que el equipo no pase a «Ausente», con un botón para encenderla y apagarla, temporizador, horario y atajo de teclado. Diseño de la familia con los colores del logo. Datos de ejemplo: ninguno es real.</p>
+    </div>
+    <dl class="mq-stamp">
+      <dt>Nivel</dt><dd>Diseño final</dd>
+      <dt>Fase</dt><dd>0.1.0 · construido</dd>
+      <dt>Spec</dt><dd>README.md · tests/</dd>
+      <dt>Ventana</dt><dd>440×600 · mín 400×540</dd>
+      <dt>Fecha</dt><dd>2026-11-09</dd>
+    </dl>
+  </header>
+
+  <nav class="mq-toc" aria-label="Láminas">
+    <a href="#identidad">1 · Identidad</a><a href="#carga">2 · Carga</a><a href="#flujo">3 · Flujo</a><a href="#prototipo">4 · Prototipo</a><a href="#estados">5 · Estados</a><a href="#bandeja">6 · Bandeja y avisos</a><a href="#ayuda">7 · Ayuda y Acerca de</a>
+    <div class="mq-theme" role="group" aria-label="Tema">
+      <button type="button" data-theme-choice="system">Sistema</button><button type="button" data-theme-choice="dark">Oscuro</button><button type="button" data-theme-choice="light">Claro</button>
+    </div>
+  </nav>
+
+  <!-- ============ 1 · IDENTIDAD ============ -->
+  <section class="mq-sheet" id="identidad">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 1</span><h2>Identidad: logo, ícono, paleta y letra</h2><span class="mq-seal built">Construido</span><span class="mq-src">resources/logo.png · src/renderer/src/tokens.css</span></div>
+    <p class="mq-lede">El logo es el ratoncito (propuesta C), elegido entre cuatro; las otras tres quedan abajo para comparar. Desde él se generan el ícono (16 a 256 px) y los colores de marca: el índigo sale de su cuerpo. Verde, ámbar y rojo son estados y no cambian.</p>
+    <div class="mq-two">
+      <div class="mq-board">
+        <span class="mq-cap">Tamaños del ícono</span>
+        <div class="mq-sizes">
+          <figure><span class="mq-logo" style="width:128px;height:128px"></span><figcaption>128</figcaption></figure>
+          <figure><span class="mq-logo" style="width:64px;height:64px"></span><figcaption>64</figcaption></figure>
+          <figure><span class="mq-logo" style="width:48px;height:48px"></span><figcaption>48</figcaption></figure>
+          <figure><span class="mq-logo" style="width:32px;height:32px"></span><figcaption>32</figcaption></figure>
+          <figure><span class="mq-logo" style="width:24px;height:24px"></span><figcaption>24</figcaption></figure>
+          <figure><span class="mq-logo" style="width:16px;height:16px"></span><figcaption>16</figcaption></figure>
+        </div>
+        <span class="mq-cap">En la bandeja: el ícono lleva un punto de estado</span>
+        <div class="mq-taskbar" aria-hidden="true"><div class="mq-slot"><span class="mq-ghost"></span></div><div class="mq-slot on"><span class="mq-logo" style="width:24px;height:24px"></span></div><div class="mq-slot"><span class="mq-ghost"></span></div></div>
+        <dl class="mq-uses">
+          <dt>resources/logo.png</dt><dd>Emblema 512 px del diseñador: ícono, carga, Acerca de</dd>
+          <dt>build/icon.ico</dt><dd>16 a 256 px, lo genera build/icono.mjs</dd>
+          <dt>resources/tray-on.png · tray-off.png</dt><dd>Ícono de bandeja con punto verde (encendido) o sin punto (apagado), derivados del logo</dd>
+        </dl>
+      </div>
+      <div class="mq-board">
+        <span class="mq-cap">Paleta · noche (por defecto)</span>
+        <div class="mq-swatches" id="mq-sw-dark"></div>
+        <span class="mq-cap">Paleta · día</span>
+        <div class="mq-swatches" id="mq-sw-light"></div>
+      </div>
+    </div>
+    <div class="mq-board">
+      <span class="mq-cap">Propuestas de ícono: elegida la C · clic en otra para comparar</span>
+      <div class="mq-icon-options" id="mq-icon-options"></div>
+      <p class="mq-note">Cada una se ve a 64, 32 y 16 px y en la bandeja: a 16 px es donde se nota si se entiende. Son bocetos de dirección; el archivo final (SVG + PNG 512) sale de la elegida.</p>
+    </div>
+    <div class="mq-board">
+      <span class="mq-cap">Tipografía: Open Sans en la interfaz, Cascadia Mono en atajos y registro</span>
+      <div class="mq-table-scroll"><table class="mq-table mq-scale"><thead><tr><th>Token</th><th>Valor</th><th>Muestra</th></tr></thead><tbody id="mq-scale"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · CARGA ============ -->
+  <section class="mq-sheet" id="carga">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 2</span><h2>Pantalla de carga y arranque</h2><span class="mq-seal built">Construido</span><span class="mq-src">src/main/splash.ts · src/main/index.ts</span></div>
+    <p class="mq-lede">Al abrirla a mano se ve la carga. Al iniciar con Windows no hay carga ni ventana: la app aparece directo en la bandeja, en el estado que diga Configuración.</p>
+    <div class="mq-board">
+      <div class="mq-splash-wrap">
+        <div class="mq-splash" id="mq-splash"><span class="mq-logo"></span><h4>Jitter</h4><p>Preparando…</p><span class="dims">260 × 480</span></div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <ol class="mq-timeline" id="mq-boot">
+            <li><span class="mq-n">1</span><div><b>Instancia única</b><span><code>requestSingleInstanceLock()</code>: si ya está abierta, muestra esa ventana y esta se cierra.</span></div></li>
+            <li><span class="mq-n">2</span><div><b>Se abre la pantalla de carga</b><span><code>openSplash()</code>, oculta hasta <code>ready-to-show</code>, con el fondo del tema guardado. Se salta si el arranque viene de Windows (<code>--hidden</code>).</span></div></li>
+            <li><span class="mq-n">3</span><div><b>Lee las preferencias</b><span><code>loadPreferences()</code> de <code>%APPDATA%\Jitter\preferences.json</code>; si están rotas, vuelve a lo de fábrica y lo anota en el registro.</span></div></li>
+            <li><span class="mq-n">4</span><div><b>Decide el estado inicial</b><span><code>startupState()</code>: apagado, el último que tenía o según el horario.</span></div></li>
+            <li><span class="mq-n">5</span><div><b>Bandeja, atajo y ventana</b><span><code>createTray()</code>, <code>globalShortcut.register('Ctrl+Alt+P')</code>; el renderer pinta y llama a <code>app:ready</code>.</span></div></li>
+            <li><span class="mq-n">6</span><div><b>Se cierra sin parpadeo</b><span><code>closeWhenSeen()</code> la deja al menos <code>SPLASH_MIN_MS</code> (400 ms).</span></div></li>
+          </ol>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="button" class="mq-btn primary" id="mq-replay">Ver el arranque</button><span class="mq-note">Recorre los pasos y abre el prototipo en Inicio.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · FLUJO ============ -->
+  <section class="mq-sheet" id="flujo">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 3</span><h2>Flujo entre pantallas</h2><span class="mq-seal built">Construido</span><span class="mq-src">App.tsx · tray.ts · activity.ts</span></div>
+    <p class="mq-lede">Cada fila es un recorrido: qué lo dispara, por dónde pasa y cómo termina. «Probar» deja el prototipo en ese punto.</p>
+    <div class="mq-legend"><span class="mq-step screen">Pantalla</span><span class="mq-step">Acción o diálogo</span><span class="mq-step sys">Windows</span><span class="mq-step own">Simulador de actividad</span></div>
+    <div class="mq-flows" id="mq-flows"></div>
+  </section>
+
+  <!-- ============ 4 · PROTOTIPO ============ -->
+  <section class="mq-sheet" id="prototipo">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 4</span><h2>Prototipo navegable</h2><span class="mq-seal built">Construido</span><span class="mq-src">440 × 600 · se desplaza de lado en pantallas angostas</span></div>
+    <p class="mq-lede">El botón redondo enciende y apaga. Debajo se elige hasta cuándo. Horario lo enciende y apaga solo por días y horas; Configuración fija cada cuánto simula actividad y cómo. Los menús, el tema y los diálogos funcionan. Cerrar la ventana no apaga nada: la app sigue en la bandeja (lámina 6).</p>
+    <div class="mq-proto-bar">
+      <button type="button" class="mq-btn small" data-scenario="sample">Encendida 1 h</button>
+      <button type="button" class="mq-btn small" data-scenario="off">Apagada</button>
+      <button type="button" class="mq-btn small" data-scenario="schedule">Fuera de horario</button>
+      <button type="button" class="mq-btn small" data-scenario="locked">Pantalla bloqueada</button>
+      <button type="button" class="mq-btn small" data-scenario="first">Primer uso</button>
+      <span class="mq-tag">Datos de ejemplo</span>
+    </div>
+    <div class="mq-window-scroll">
+      <div class="mq-window">
+        <div class="mq-titlebar"><span class="mq-logo"></span>Jitter<div class="ctl" aria-hidden="true"><span>—</span><span>▢</span><span>✕</span></div></div>
+        <div class="win" id="app"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · ESTADOS ============ -->
+  <section class="mq-sheet" id="estados">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 5</span><h2>Estados del botón de encendido</h2><span class="mq-seal built">Construido</span><span class="mq-src">PowerButton · StatusBadge · tray.ts</span></div>
+    <p class="mq-lede">El estado se lee por forma, color y texto a la vez: anillo lleno, punteado o de color, y siempre una insignia que lo dice. El ícono de la bandeja repite el mismo estado.</p>
+    <div class="mq-states" id="mq-states"></div>
+  </section>
+
+  <!-- ============ 6 · BANDEJA ============ -->
+  <section class="mq-sheet" id="bandeja">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 6</span><h2>Bandeja del sistema, atajo y avisos</h2><span class="mq-seal built">Construido</span><span class="mq-src">src/main/tray.ts · src/main/notifier.ts</span></div>
+    <p class="mq-lede">La app vive en la bandeja: casi todo se hace desde ahí sin abrir la ventana. Clic izquierdo en el ícono cambia encendido/apagado; clic derecho abre el menú. <kbd class="mq-mono">Ctrl+Alt+P</kbd> hace lo mismo desde cualquier programa. «Salir» apaga el simulador y cierra todos los procesos. La bandeja y los avisos son de Windows: aquí se dibujan con los colores de la página.</p>
+    <div class="mq-two">
+      <div class="mq-board">
+        <span class="mq-cap">Clic derecho sobre el ícono</span>
+        <div class="mq-tray-stage">
+          <div class="mq-tray-menu"><span>Jitter · Encendida</span><hr><span>Apagar  Ctrl+Alt+P</span><span>Encender durante 30 min</span><span>Encender durante 1 h</span><span>Encender durante 2 h</span><span>Encender hasta las 18:00</span><hr><span>Seguir el horario ✓</span><span>Abrir la ventana</span><hr><span>Salir</span></div>
+          <div class="mq-tray-bar"><span>^</span><div class="mq-slot"><span class="mq-logo" style="width:18px;height:18px"></span></div><span>ESP</span><div class="clock">14:43<br>09/11/2026</div></div>
+        </div>
+        <p class="mq-note">Al pasar el mouse por el ícono: «Jitter: encendida, se apaga a las 15:43».</p>
+      </div>
+      <div class="mq-board">
+        <span class="mq-cap">Avisos (se pueden apagar en Configuración)</span>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="mq-winnote"><header><span class="mq-logo" style="width:16px;height:16px"></span>Jitter</header><b>Se apagó: terminó la hora</b><p>Desde ahora Windows cuenta la inactividad de forma normal.</p><div class="acts"><button class="mq-btn small" type="button">Otra hora</button><button class="mq-btn small" type="button">Dejar apagada</button></div></div>
+          <div class="mq-winnote"><header><span class="mq-logo" style="width:16px;height:16px"></span>Jitter</header><b>Fuera del horario</b><p>Se apagó a las 18:00. Se enciende mañana a las 08:30.</p></div>
+          <div class="mq-winnote"><header><span class="mq-logo" style="width:16px;height:16px"></span>Jitter</header><b>Encendida con Ctrl+Alt+P</b><p>Simula actividad cada 4 minutos hasta que la apagues.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · AYUDA ============ -->
+  <section class="mq-sheet" id="ayuda">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 7</span><h2>Ayuda y Acerca de</h2><span class="mq-seal built">Construido</span><span class="mq-src">src/shared/help.ts · AboutDialog</span></div>
+    <p class="mq-lede">El menú Ayuda lleva Guía de uso (F1), Lo que conviene saber, Notas de la versión, Registro y Acerca de. Las versiones entre corchetes las lee la app al abrir el diálogo.</p>
+    <div class="mq-board">
+      <div class="mq-tabs" role="tablist" aria-label="Pantallas de la Ayuda">
+        <button type="button" data-help-tab="about" class="on">Acerca de</button><button type="button" data-help-tab="guide">Guía de uso</button><button type="button" data-help-tab="know">Lo que conviene saber</button><button type="button" data-help-tab="log">Registro</button>
+      </div>
+      <div class="mq-help-stage"><div class="win mq-static" id="mq-help" style="width:100%;max-width:620px"></div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+// Motor común de las maquetas de la familia. Lo inyecta generar.mjs en la plantilla (marcador /*__MAQUETA_JS__*/);
+// la plantilla solo aporta sus datos y sus vistas. Expone window.MQ.
+(() => {
+  const $ = (selector, root = document) => root.querySelector(selector)
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)]
+  const BOOT_STEP_MS = 700
+  const THEME_STORAGE_KEY = 'mq-theme'
+  const listeners = []
+
+  const escapeHtml = (text) => String(text).replace(/[&<>"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[char])
+
+  // ---------- tema: Sistema · Oscuro · Claro. Noche es :root; día pone data-theme='light' ----------
+  const systemPrefersLight = () => window.matchMedia('(prefers-color-scheme: light)').matches
+  function applyTheme(choice) {
+    const light = choice === 'light' || (choice === 'system' && systemPrefersLight())
+    if (light) document.documentElement.dataset.theme = 'light'
+    else document.documentElement.removeAttribute('data-theme')
+    $$('.mq-theme button').forEach((button) => button.classList.toggle('on', button.dataset.themeChoice === choice))
+    try { localStorage.setItem(THEME_STORAGE_KEY, choice) } catch (error) { console.warn('Sin almacenamiento local para el tema', error) }
+    listeners.forEach((listener) => listener(light ? 'light' : 'dark'))
+  }
+  function initTheme() {
+    let saved = 'system'
+    try { saved = localStorage.getItem(THEME_STORAGE_KEY) || 'system' } catch (error) { console.warn('Sin almacenamiento local para el tema', error) }
+    $$('.mq-theme button').forEach((button) => { button.onclick = () => applyTheme(button.dataset.themeChoice) })
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+      if ($('.mq-theme button.on')?.dataset.themeChoice === 'system') applyTheme('system')
+    })
+    applyTheme(saved)
+  }
+  const currentTheme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark')
+  const onThemeChange = (listener) => listeners.push(listener)
+
+  // ---------- paleta: lee los valores reales de los tokens en cada tema ----------
+  function readTokens(names, theme) {
+    const root = document.documentElement
+    const previous = root.dataset.theme
+    if (theme === 'light') root.dataset.theme = 'light'
+    else root.removeAttribute('data-theme')
+    const style = getComputedStyle(root)
+    const values = Object.fromEntries(names.map((name) => [name, style.getPropertyValue(name).trim()]))
+    if (previous) root.dataset.theme = previous
+    else root.removeAttribute('data-theme')
+    return values
+  }
+  function swatches(container, tokens, theme) {
+    const values = readTokens(tokens.map(([name]) => name), theme)
+    container.innerHTML = tokens.map(([name, role]) =>
+      `<div class="mq-sw"><i style="background:${values[name]}"></i><div><b>${name}</b><span>${escapeHtml(role)} · ${values[name]}</span></div></div>`).join('')
+  }
+
+  // ---------- arranque: enciende cada paso y al final llama a onDone ----------
+  function boot({ list, splash, button, onDone }) {
+    button.onclick = () => {
+      const steps = $$('li', list)
+      splash.classList.remove('closing')
+      steps.forEach((step) => step.classList.remove('lit'))
+      steps.forEach((step, index) => setTimeout(() => step.classList.add('lit'), BOOT_STEP_MS * (index + 1)))
+      setTimeout(() => { splash.classList.add('closing'); onDone?.() }, BOOT_STEP_MS * (steps.length + 1))
+    }
+  }
+
+  // ---------- flujos: una fila por recorrido, con «Probar» ----------
+  function flows(container, rows, onTry) {
+    container.innerHTML = rows.map((row, index) => `<div class="mq-flow">
+      <div class="mq-who"><b>${escapeHtml(row.who)}</b><span>${escapeHtml(row.trigger)}</span></div>
+      <div class="mq-chain">${row.steps.map(([text, kind]) => `<span class="mq-step ${kind || ''}">${escapeHtml(text)}</span>`).join('<span class="mq-arrow">→</span>')}</div>
+      <button type="button" class="mq-btn small" data-flow="${index}">Probar</button></div>`).join('')
+    $$('[data-flow]', container).forEach((button) => { button.onclick = () => onTry(rows[button.dataset.flow]) })
+  }
+
+  // ---------- barra de menús de la app (forma de Nautilus): título → panel con opciones y atajos ----------
+  function menubar(container, menus) {
+    container.innerHTML = Object.keys(menus).map((title) =>
+      `<div class="menubar-entry"><button type="button" class="menubar-title" data-menu="${escapeHtml(title)}">${escapeHtml(title)}</button></div>`).join('')
+    const close = () => { $$('.menubar-panel', container).forEach((panel) => panel.remove()); $$('.menubar-title', container).forEach((title) => title.classList.remove('on')) }
+    $$('.menubar-title', container).forEach((title) => {
+      title.onclick = (event) => {
+        event.stopPropagation()
+        const wasOpen = title.classList.contains('on')
+        close()
+        if (wasOpen) return
+        title.classList.add('on')
+        const panel = document.createElement('div')
+        panel.className = 'ctx menubar-panel'
+        menus[title.dataset.menu].forEach((item) => {
+          if (!item) { panel.insertAdjacentHTML('beforeend', '<div class="ctx-separator"></div>'); return }
+          const [label, key, action] = item
+          const option = document.createElement('button')
+          option.type = 'button'
+          option.innerHTML = `${escapeHtml(label)}<span class="ctx-key">${escapeHtml(key || '')}</span>`
+          option.disabled = !action
+          option.onclick = (clickEvent) => { clickEvent.stopPropagation(); close(); action() }
+          panel.appendChild(option)
+        })
+        title.parentElement.appendChild(panel)
+      }
+    })
+    document.addEventListener('click', close)
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close() })
+  }
+
+  // ---------- diálogo y aviso dentro de la ventana del prototipo ----------
+  function dialog(win, { title, body, foot, wide }) {
+    const layer = document.createElement('div')
+    layer.className = 'backdrop'
+    layer.innerHTML = `<div class="dialog${wide ? ' wide' : ''}" role="dialog" aria-label="${escapeHtml(title)}">
+      <div class="dialog-head"><span class="dialog-title">${escapeHtml(title)}</span><button type="button" class="dialog-x" aria-label="Cerrar">×</button></div>
+      <div class="dialog-body">${body}</div>${foot ? `<div class="dialog-foot">${foot}</div>` : ''}</div>`
+    const close = () => layer.remove()
+    $('.dialog-x', layer).onclick = close
+    layer.onclick = (event) => { if (event.target === layer) close() }
+    win.appendChild(layer)
+    return { layer, close }
+  }
+  function toast(win, html, durationMs = 3500) {
+    $('.toast', win)?.remove()
+    const note = document.createElement('div')
+    note.className = 'toast'
+    note.innerHTML = html
+    win.appendChild(note)
+    setTimeout(() => note.remove(), durationMs)
+    return note
+  }
+
+  window.MQ = { $, $$, escapeHtml, initTheme, applyTheme, currentTheme, onThemeChange, swatches, boot, flows, menubar, dialog, toast }
+})()
+
+</script>
+<script>
+(() => {
+  const { $, $$, escapeHtml } = MQ
+  const APP = 'Jitter'
+  const win = $('#app')
+  const SECONDS_PER_MINUTE = 60
+  const TICK_MS = 1000
+  const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+  const UNTIL_OPTIONS = [['until', 'Hasta que la apague'], ['30', '30 min'], ['60', '1 h'], ['120', '2 h'], ['hour', 'Hasta las 18:00']]
+  const POWER_ICON = '<svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v9"/><path d="M6.3 6.3a8 8 0 1 0 11.4 0"/></svg>'
+
+  const fresh = () => ({ view: 'home', on: true, until: '60', leftSeconds: 42 * SECONDS_PER_MINUTE, nextSeconds: 192, outside: false, locked: false, failed: false,
+    scheduleOn: false, intervalMinutes: 4, method: 'f15', startup: 'off', startWithWindows: false, notify: true, pulsesToday: 18, onForMinutes: 18 })
+  let state = fresh()
+
+  const clock = (seconds) => `${Math.floor(seconds / SECONDS_PER_MINUTE)}:${String(seconds % SECONDS_PER_MINUTE).padStart(2, '0')}`
+  const methodText = () => (state.method === 'f15' ? 'tecla F15' : 'mouse 1 píxel')
+
+  // ---------- el estado que se ve: una sola función lo decide para el botón, la insignia, la barra y la bandeja ----------
+  function look(s = state) {
+    if (s.failed) return { kind: 'err', label: 'Con error', badge: ['err', 'No pudo simular actividad'], hint: 'Windows rechazó la señal; puede ser una directiva del equipo. El detalle está en Ayuda → Registro.' }
+    if (s.on && s.locked) return { kind: 'paused', label: 'En pausa', badge: ['warn', 'Pantalla bloqueada'], hint: 'Con la pantalla bloqueada Windows marca Ausente igual. Sigue sola al desbloquear.' }
+    if (s.on) {
+      const timer = s.until === 'until' ? 'hasta que la apagues' : s.until === 'hour' ? 'hasta las 18:00' : `se apaga en ${clock(s.leftSeconds)}`
+      return { kind: 'on', label: 'Encendida', badge: ['ok', `Activa · próxima señal en ${clock(s.nextSeconds)}`], hint: `Simula actividad cada ${s.intervalMinutes} minutos con la ${methodText()}, ${timer}.` }
+    }
+    if (s.scheduleOn && s.outside) return { kind: 'wait', label: 'Esperando horario', badge: ['', 'Se enciende mañana a las 08:30'], hint: 'Fuera del horario está apagada. El botón la enciende igual hasta la próxima hora de corte.' }
+    return { kind: '', label: 'Apagada', badge: ['', 'Apagada'], hint: 'Windows cuenta la inactividad de forma normal.' }
+  }
+
+  // ---------- vistas ----------
+  function homeView() {
+    const current = look()
+    const chips = UNTIL_OPTIONS.map(([value, text]) => `<button type="button" class="chip${state.until === value ? ' on' : ''}" data-until="${value}">${text}</button>`).join('')
+    const lockedNotice = state.on && state.locked ? '<div class="notice warn">La pantalla está bloqueada: Windows no cuenta actividad hasta que la desbloquees.</div>' : ''
+    return `<div class="power-wrap">
+        <button type="button" class="power ${current.kind}" id="pr-power" aria-pressed="${state.on}" title="${state.on ? 'Apagar' : 'Encender'} (Ctrl+Alt+P)">${POWER_ICON}</button>
+        <div class="power-label">${current.label}</div>
+        <span class="badge ${current.badge[0]}"><span class="dot"></span>${current.badge[1]}</span>
+        <p class="hint">${current.hint}</p>
+      </div>
+      ${lockedNotice}
+      <div class="field"><span class="label">¿Hasta cuándo?</span><div class="chips">${chips}</div></div>
+      <div class="stats"><div class="stat accent"><b>${state.onForMinutes} min</b><span>encendida en esta sesión</span></div><div class="stat"><b>${state.pulsesToday}</b><span>señales enviadas hoy</span></div></div>`
+  }
+
+  function scheduleView() {
+    const rows = DAYS.map((day, index) => {
+      const weekday = index < 5
+      return `<div class="sched-row${weekday ? '' : ' off'}"><label class="check"><input type="checkbox" ${weekday ? 'checked' : ''}>${day}</label>
+        <input type="time" value="${weekday ? '08:30' : ''}" aria-label="${day} desde"><span class="muted">a</span><input type="time" value="${weekday ? '18:00' : ''}" aria-label="${day} hasta"></div>`
+    }).join('')
+    return `<div class="list-head" style="padding:0"><span class="list-title">Horario</span></div>
+      <label class="check"><input type="checkbox" id="pr-sched" ${state.scheduleOn ? 'checked' : ''}><span>Encender y apagar sola según este horario.<small>Fuera del horario se apaga y la bandeja lo muestra en gris.</small></span></label>
+      <div class="setting">${rows}</div>
+      <p class="hint">El botón de Inicio siempre gana: la enciende o apaga a mano hasta la próxima hora del horario.</p>`
+  }
+
+  function settingsView() {
+    const theme = $('.mq-theme button.on')?.dataset.themeChoice || 'system'
+    const segmented = (id, options, current) => `<div class="segmented" id="${id}">${options.map(([value, text]) => `<button type="button" data-value="${value}" class="${current === value ? 'on' : ''}">${text}</button>`).join('')}</div>`
+    return `<div class="list-head" style="padding:0"><span class="list-title">Configuración</span></div>
+      <div class="setting"><h4>Actividad</h4>
+        <label class="check"><span>Simular actividad cada <input class="inline-num" type="number" min="1" max="14" value="${state.intervalMinutes}" id="pr-interval"> minutos.<small>Teams pasa a Ausente a los 5 minutos sin actividad: con 4 alcanza.</small></span></label>
+        <span class="label">Cómo</span>${segmented('pr-method', [['f15', 'Tecla F15'], ['mouse', 'Mover el mouse 1 píxel']], state.method)}
+        <p class="hint">${state.method === 'f15' ? 'F15 es una tecla que no existe en el teclado: no escribe nada ni mueve el cursor.' : 'Mueve el cursor un píxel y lo devuelve. Se nota si estás dibujando o arrastrando.'}</p>
+      </div>
+      <div class="setting"><h4>Al iniciar</h4>
+        <label class="check"><input type="checkbox" ${state.startWithWindows ? 'checked' : ''}><span>Abrir con Windows, en la bandeja y sin ventana.</span></label>
+        <label class="check"><input type="checkbox" checked><span>Al cerrar la ventana, seguir en la bandeja.</span></label>
+        <span class="label">Estado al abrir</span>${segmented('pr-startup', [['off', 'Apagada'], ['last', 'Como la dejé'], ['schedule', 'Según el horario']], state.startup)}
+      </div>
+      <div class="setting"><h4>Avisos y atajo</h4>
+        <label class="check"><input type="checkbox" ${state.notify ? 'checked' : ''}><span>Avisarme cuando se apague sola.</span></label>
+        <div class="kbd-line"><span>Encender y apagar con</span><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd></div>
+      </div>
+      <div class="setting"><h4>Apariencia</h4>
+        <span class="label">Tema</span>${segmented('pr-theme', [['system', 'Sistema'], ['dark', 'Oscuro'], ['light', 'Claro']], theme)}
+        <span class="label">Idioma</span>${segmented('pr-lang', [['system', 'Sistema'], ['es', 'Español'], ['en', 'English']], 'system')}
+      </div>`
+  }
+
+  const VIEWS = { home: ['Inicio', homeView], schedule: ['Horario', scheduleView], settings: ['Configuración', settingsView] }
+
+  function render() {
+    const current = look()
+    const tone = { on: 'tone-ok', paused: 'tone-warn', err: 'tone-err' }[current.kind] || 'tone-off'
+    const tabs = Object.entries(VIEWS).map(([key, [title]]) => `<button type="button" data-view="${key}" class="${state.view === key ? 'on' : ''}">${title}</button>`).join('')
+    win.innerHTML = `<div class="app">
+      <div class="topbar"><span class="mq-logo" style="width:18px;height:18px"></span><div class="menubar" id="pr-menubar"></div>
+        </div>
+      <div class="toolbar view-tabs"><div class="segmented">${tabs}</div></div>
+      <div class="view">${VIEWS[state.view][1]()}</div>
+      <div class="statusbar"><span class="${tone}">● ${current.label}</span><span>${state.on ? `Señal cada ${state.intervalMinutes} min · ${methodText()}` : 'Sin señales'}</span><span class="statusbar-right">Hoy: ${state.pulsesToday} señales</span></div>
+    </div>`
+    MQ.menubar($('#pr-menubar', win), MENUS)
+    wire()
+  }
+
+  function wire() {
+    $$('[data-view]', win).forEach((button) => { button.onclick = () => { state.view = button.dataset.view; render() } })
+    const power = $('#pr-power', win)
+    if (power) power.onclick = togglePower
+    $$('[data-until]', win).forEach((chip) => { chip.onclick = () => {
+      state.until = chip.dataset.until
+      state.leftSeconds = Number(chip.dataset.until) * SECONDS_PER_MINUTE || 0
+      if (!state.on) togglePower(); else render()
+    } })
+    const schedule = $('#pr-sched', win)
+    if (schedule) schedule.onchange = () => { state.scheduleOn = schedule.checked; render() }
+    const interval = $('#pr-interval', win)
+    if (interval) interval.onchange = () => { state.intervalMinutes = Math.max(1, Math.min(14, Number(interval.value) || 4)); render() }
+    const segmentHandlers = { 'pr-method': (value) => { state.method = value }, 'pr-startup': (value) => { state.startup = value }, 'pr-theme': (value) => MQ.applyTheme(value), 'pr-lang': () => {} }
+    Object.entries(segmentHandlers).forEach(([id, apply]) => {
+      $$(`#${id} button`, win).forEach((button) => { button.onclick = () => { apply(button.dataset.value); render() } })
+    })
+  }
+
+  function togglePower() {
+    state.on = !state.on
+    state.failed = false
+    if (state.on) { state.nextSeconds = state.intervalMinutes * SECONDS_PER_MINUTE; state.outside = false }
+    render()
+    MQ.toast(win, state.on ? `<b>Encendida</b> Simula actividad cada ${state.intervalMinutes} minutos.` : '<b>Apagada</b> Windows cuenta la inactividad de forma normal.')
+  }
+
+  // ---------- reloj del prototipo: la cuenta regresiva y la próxima señal avanzan de verdad ----------
+  setInterval(() => {
+    if (!state.on || state.locked || state.failed) return
+    state.nextSeconds -= 1
+    if (state.nextSeconds <= 0) { state.nextSeconds = state.intervalMinutes * SECONDS_PER_MINUTE; state.pulsesToday += 1 }
+    if (!['until', 'hour'].includes(state.until)) {
+      state.leftSeconds -= 1
+      if (state.leftSeconds <= 0) { state.on = false; render(); MQ.toast(win, '<b>Se apagó: terminó el tiempo</b>'); return }
+    }
+    const badge = $('.power-wrap .badge', win)
+    const hint = $('.power-wrap .hint', win)
+    if (badge && state.view === 'home') { const current = look(); badge.innerHTML = `<span class="dot"></span>${current.badge[1]}`; hint.textContent = current.hint }
+  }, TICK_MS)
+
+  // ---------- diálogos de la app ----------
+  const aboutBody = () => `<div class="about-head"><span class="mq-logo logo"></span><div><div class="about-name">${APP}</div><div class="muted">Versión 0.1.0 · Mantiene tu estado activo mientras trabajas.</div></div></div>
+    <table class="about-table">
+      <tr><th colspan="2">Con qué corre</th></tr><tr><td>Electron</td><td>[versión]</td></tr><tr><td>Chromium · Node</td><td>[versión] · [versión]</td></tr><tr><td>Windows</td><td>[versión]</td></tr>
+      <tr><th colspan="2">Dónde guarda</th></tr><tr><td>Datos</td><td class="mono">%APPDATA%\\Jitter\\ <button type="button" class="link-btn">Abrir</button></td></tr><tr><td>Registro</td><td class="mono">logs\\jitter.log <button type="button" class="link-btn">Abrir</button></td></tr>
+      <tr><th colspan="2">Código abierto incluido</th></tr><tr><td>Electron</td><td>MIT</td></tr><tr><td>React</td><td>MIT</td></tr><tr><td>Open Sans</td><td>OFL 1.1</td></tr>
+    </table>
+    <div class="row"><button type="button" class="link-btn">Notas de la versión</button><button type="button" class="link-btn">Guía de uso</button><button type="button" class="link-btn">Repositorio</button></div>
+    <div class="hint">© 2026 [Autor] · Licencia [por definir]</div>`
+  const guideBody = () => `<p><b>Encender y apagar.</b> El botón redondo de Inicio, clic izquierdo en el ícono de la bandeja o <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> desde cualquier programa.</p>
+    <p><b>Por un rato.</b> Elige 30 min, 1 h, 2 h o «Hasta las 18:00»: al terminar se apaga sola y te avisa.</p>
+    <p><b>Por horario.</b> En Horario marca los días y las horas. Fuera de ellas se apaga sola; el botón la enciende igual hasta la próxima hora del horario.</p>
+    <p><b>Cerrar no es salir.</b> Cerrar la ventana la deja en la bandeja. Para terminarla del todo: bandeja → Salir, o Archivo → Salir.</p>`
+  const knowBody = () => `<div class="warn-box">Simular actividad en un equipo de la empresa puede ir contra su política de uso. Antes de usarla, revísala.</div>
+    <p><b>La pantalla bloqueada gana.</b> Si bloqueas el equipo (Win+L) o se bloquea solo por directiva, Teams te marca Ausente igual. La app no lo evita.</p>
+    <p><b>No escribe nada.</b> La tecla F15 no existe en el teclado: ningún programa la usa. Si prefieres, en Configuración puedes cambiarla por mover el mouse 1 píxel.</p>
+    <p><b>Sin administrador.</b> Se instala solo para tu usuario y no instala servicios.</p>`
+  const logBody = () => `<div class="value-full" style="max-height:220px;user-select:text">{"t":"14:31:02","lvl":"INFO","op":"power","on":true,"until":"60m","by":"shortcut"}
+{"t":"14:35:02","lvl":"DEBUG","op":"pulse","method":"f15"}
+{"t":"14:39:02","lvl":"DEBUG","op":"pulse","method":"f15"}
+{"t":"14:40:10","lvl":"INFO","op":"session","event":"lock","action":"pause"}
+{"t":"14:42:55","lvl":"INFO","op":"session","event":"unlock","action":"resume"}</div>
+    <div class="row"><button type="button" class="btn small">Copiar</button><button type="button" class="btn small">Abrir la carpeta</button></div>`
+  const welcomeBody = () => `<p>${APP} envía a Windows cada pocos minutos una señal de actividad, para que el equipo no pase a «Ausente» mientras lees o estás en una llamada sin tocar el teclado.</p>
+    <p>Arranca <b>apagada</b>. Enciéndela con el botón redondo, desde la bandeja o con <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>.</p>
+    <div class="warn-box">En un equipo de la empresa, revisa antes su política de uso.</div>`
+
+  const HELP = { about: ['Acerca de', aboutBody], guide: ['Guía de uso', guideBody], know: ['Lo que conviene saber', knowBody], log: ['Registro', logBody] }
+  const openHelp = (key) => MQ.dialog(win, { title: HELP[key][0], body: HELP[key][1](), wide: key === 'log' })
+  const goView = (view) => { state.view = view; render() }
+
+  const MENUS = {
+    Archivo: [['Encender o apagar', 'Ctrl+Alt+P', togglePower], ['Cerrar la ventana (sigue en la bandeja)', 'Ctrl+W', () => MQ.toast(win, '<b>Sigue en la bandeja</b> Clic en el ícono para volver.')], null, ['Salir', 'Ctrl+Q', () => MQ.toast(win, '<b>Salir</b> Apaga el simulador y cierra la app del todo.')]],
+    Editar: [['Copiar', 'Ctrl+C', null], ['Seleccionar todo', 'Ctrl+A', null]],
+    Ver: [['Inicio', 'Ctrl+1', () => goView('home')], ['Horario', 'Ctrl+2', () => goView('schedule')]],
+    Herramientas: [['Configuración', 'Ctrl+,', () => goView('settings')]],
+    Ayuda: [['Guía de uso', 'F1', () => openHelp('guide')], ['Lo que conviene saber', '', () => openHelp('know')], ['Notas de la versión', '', () => MQ.dialog(win, { title: 'Notas de la versión', body: '<p><b>0.1.0</b> · Primera versión: encendido, temporizador, horario, bandeja y atajo.</p>' })], ['Registro', '', () => openHelp('log')], null, ['Acerca de', '', () => openHelp('about')]],
+  }
+
+  // ---------- escenarios ----------
+  const SCENARIOS = {
+    sample: () => {},
+    off: () => { state.on = false },
+    schedule: () => { state.on = false; state.scheduleOn = true; state.outside = true },
+    locked: () => { state.locked = true; state.until = 'until' },
+    first: () => { state.on = false; state.pulsesToday = 0; state.onForMinutes = 0 },
+  }
+  function scenario(name) {
+    state = fresh()
+    SCENARIOS[name]()
+    render()
+    if (name === 'first') MQ.dialog(win, { title: `Bienvenida a ${APP}`, body: welcomeBody(), foot: '<button type="button" class="btn primary" id="pr-ok">Entendido</button>' }) && ($('#pr-ok', win).onclick = () => $('.backdrop', win).remove())
+  }
+  $$('[data-scenario]').forEach((button) => { button.onclick = () => scenario(button.dataset.scenario) })
+  const toPrototype = () => $('#prototipo').scrollIntoView({ behavior: 'smooth' })
+
+  // ---------- lámina 1: paleta y escala ----------
+  const TOKENS = [['--bg', 'fondo'], ['--panel', 'superficie'], ['--line', 'bordes'], ['--text', 'texto'], ['--text-strong', 'texto fuerte'], ['--muted', 'secundario'], ['--brand', 'marca'], ['--accent', 'acción'], ['--accent-soft', 'selección'], ['--ok', 'encendida'], ['--warn', 'en pausa'], ['--err', 'error']]
+  const paint = () => { MQ.swatches($('#mq-sw-dark'), TOKENS, 'dark'); MQ.swatches($('#mq-sw-light'), TOKENS, 'light') }
+  const SCALE = [['--fs-xs', 'Etiquetas en mayúsculas, insignias'], ['--fs-sm', 'Ayudas, barra de estado, chips'], ['--fs-base', 'Texto, botones, menús'], ['--fs-md', 'Títulos de vista y estado del botón'], ['--fs-lg', 'Nombre en Acerca de'], ['--fs-xl', 'Cifras de las tarjetas']]
+  const rootStyle = getComputedStyle(document.documentElement)
+  $('#mq-scale').innerHTML = SCALE.map(([token, use]) => `<tr><td class="mq-mono">${token}</td><td>${rootStyle.getPropertyValue(token).trim()}</td><td style="font-size:var(${token})">${escapeHtml(use)}</td></tr>`).join('')
+
+  // ---------- lámina 5: estados ----------
+  const STATE_CASES = [
+    ['Apagada', { on: false }, 'Nadie la encendió, o la apagaste. Anillo neutro.'],
+    ['Encendida', { on: true, until: 'until' }, 'Envía la señal cada N minutos. Anillo verde que late (quieto si Windows pide menos movimiento).'],
+    ['Encendida con tiempo', { on: true, until: '60', leftSeconds: 41 * 60 + 58 }, 'Elegiste 30 min, 1 h o 2 h: la insignia muestra la cuenta y al llegar a cero se apaga y avisa.'],
+    ['Esperando horario', { on: false, scheduleOn: true, outside: true }, 'Horario activo y fuera de rango. Anillo punteado: se encenderá sola.'],
+    ['En pausa', { on: true, locked: true }, 'Pantalla bloqueada: no tiene sentido enviar señales. Sigue sola al desbloquear.'],
+    ['Con error', { on: true, failed: true }, 'Windows rechazó la señal (p. ej. una directiva). Anillo rojo y el detalle en el Registro.'],
+  ]
+  $('#mq-states').innerHTML = STATE_CASES.map(([title, patch, why]) => {
+    const current = look({ ...fresh(), ...patch })
+    return `<div class="mq-state"><div class="win"><span class="power small ${current.kind}">${POWER_ICON}</span><b class="strong">${current.label}</b><span class="badge ${current.badge[0]}"><span class="dot"></span>${current.badge[1]}</span></div><p class="mq-why"><b>${title}.</b> ${why}</p></div>`
+  }).join('')
+
+  // ---------- lámina 3: flujos ----------
+  MQ.flows($('#mq-flows'), [
+    { who: 'Encender ya', trigger: 'Clic en el botón redondo', steps: [['Inicio', 'screen'], ['Encendida', ''], ['Señal cada 4 min', 'own'], ['Mismo botón la apaga', '']], scenario: 'off' },
+    { who: 'Por un rato', trigger: 'Chip «1 h» en Inicio', steps: [['Inicio', 'screen'], ['Cuenta regresiva', 'own'], ['Se apaga sola', 'own'], ['Aviso de Windows', 'sys']], scenario: 'sample' },
+    { who: 'Desde la bandeja', trigger: 'Clic derecho en el ícono', steps: [['Menú de la bandeja', 'sys'], ['Encender durante 2 h', ''], ['Sin abrir la ventana', 'own']], anchor: '#bandeja' },
+    { who: 'Atajo', trigger: 'Ctrl+Alt+P en cualquier programa', steps: [['Atajo global', 'sys'], ['Cambia encendida/apagada', 'own'], ['Aviso corto', 'sys']], scenario: 'off' },
+    { who: 'Por horario', trigger: 'Horario → marcar días y horas', steps: [['Horario', 'screen'], ['Fuera de rango: apagada', 'own'], ['08:30: se enciende', 'own'], ['18:00: se apaga y avisa', 'sys']], scenario: 'schedule', view: 'schedule' },
+    { who: 'Pantalla bloqueada', trigger: 'Win+L o bloqueo por directiva', steps: [['Bloqueo de sesión', 'sys'], ['En pausa', 'own'], ['Desbloqueo', 'sys'], ['Sigue sola', 'own']], scenario: 'locked' },
+    { who: 'Arranque con Windows', trigger: 'Inicio de sesión', steps: [['Windows abre la app', 'sys'], ['Directo a la bandeja', 'own'], ['Estado según Configuración', 'own']], scenario: 'off', view: 'settings' },
+    { who: 'Primer uso', trigger: 'Termina el instalador', steps: [['Bienvenida', 'screen'], ['Entendido', ''], ['Inicio, apagada', 'screen']], scenario: 'first' },
+  ], (row) => {
+    if (row.anchor) { $(row.anchor).scrollIntoView({ behavior: 'smooth' }); return }
+    scenario(row.scenario)
+    if (row.view) goView(row.view)
+    toPrototype()
+  })
+
+  // ---------- lámina 1: propuestas de ícono (ratón). Colores fijos: el ícono se ve igual en los dos temas ----------
+  const INDIGO = '#4b5bd6'
+  const INDIGO_SOFT = '#9aa4ff'
+  const GREEN = '#4fbf6a'
+  const WHITE = '#ffffff'
+  const MOUSE_SPLIT = (x, top, width, cut) => `<path d="M${x} ${top}v${cut}M${x - width / 2} ${top + cut}h${width}" stroke="${WHITE}" stroke-width="2.5" opacity=".55"/>`
+  const ICONS = [
+    { id: 'clasico', name: 'A · Ratón clásico', why: 'El ratón de computadora tal cual: cuerpo, rueda y división de botones. El más directo; a 16 px queda una píldora.',
+      svg: `<rect x="18" y="6" width="28" height="52" rx="14" fill="${INDIGO}"/>${MOUSE_SPLIT(32, 6, 28, 18)}<rect x="29.5" y="11" width="5" height="9" rx="2.5" fill="${WHITE}"/>` },
+    { id: 'ondas', name: 'B · Ratón con señal', why: 'El ratón emite ondas verdes: dice «estoy enviando actividad». Las ondas sirven también para mostrar el encendido.',
+      svg: `<rect x="10" y="12" width="26" height="44" rx="13" fill="${INDIGO}"/>${MOUSE_SPLIT(23, 12, 26, 14)}<rect x="20.5" y="16" width="5" height="8" rx="2.5" fill="${WHITE}"/><path d="M44 22a14 14 0 0 1 0 20M51 15a23 23 0 0 1 0 34" fill="none" stroke="${GREEN}" stroke-width="4.5" stroke-linecap="round"/>` },
+    { id: 'animal', name: 'C · Ratoncito', why: 'Un ratón animal, geométrico y amable: orejas, ojos y nariz. Juega con el doble sentido y se reconoce a 16 px por las orejas.',
+      svg: `<circle cx="16" cy="20" r="11" fill="${INDIGO}"/><circle cx="48" cy="20" r="11" fill="${INDIGO}"/><circle cx="16" cy="20" r="5" fill="${INDIGO_SOFT}"/><circle cx="48" cy="20" r="5" fill="${INDIGO_SOFT}"/><ellipse cx="32" cy="39" rx="20" ry="18" fill="${INDIGO}"/><circle cx="25" cy="36" r="3" fill="${WHITE}"/><circle cx="39" cy="36" r="3" fill="${WHITE}"/><circle cx="32" cy="46" r="3.5" fill="#ff8fb1"/>` },
+    { id: 'presencia', name: 'D · Ratón disponible', why: 'Ratón con el círculo verde con ✓ de «Disponible» en la esquina. Cuenta para qué sirve sin palabras; el círculo puede apagarse en la bandeja.',
+      svg: `<rect x="12" y="4" width="30" height="54" rx="15" fill="${INDIGO}"/>${MOUSE_SPLIT(27, 4, 30, 20)}<rect x="24.5" y="9" width="5" height="10" rx="2.5" fill="${WHITE}"/><circle cx="46" cy="47" r="13" fill="${GREEN}" stroke="${WHITE}" stroke-width="3.5"/><path d="M40 47l4.5 4.5 7.5-8.5" fill="none" stroke="${WHITE}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>` },
+  ]
+  const ICON_STORAGE_KEY = 'mq-icon'
+  const DEFAULT_ICON = 'animal'
+  const iconUrl = (icon) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">${icon.svg}</svg>`)}`
+  function chooseIcon(id) {
+    const icon = ICONS.find((candidate) => candidate.id === id)
+    if (!icon) return
+    document.documentElement.style.setProperty('--mq-logo', `url("${iconUrl(icon)}")`)
+    document.documentElement.classList.add('mq-has-logo')
+    $$('.mq-icon-opt').forEach((option) => option.classList.toggle('on', option.dataset.icon === id))
+    try { localStorage.setItem(ICON_STORAGE_KEY, id) } catch (error) { console.warn('Sin almacenamiento local para el ícono', error) }
+  }
+  $('#mq-icon-options').innerHTML = ICONS.map((icon) => {
+    const url = iconUrl(icon)
+    return `<button type="button" class="mq-icon-opt" data-icon="${icon.id}"><b>${icon.name}</b>
+      <div class="mq-icon-row"><img src="${url}" width="64" height="64" alt=""><img src="${url}" width="32" height="32" alt=""><img src="${url}" width="16" height="16" alt=""><span class="tray"><img src="${url}" width="18" height="18" alt=""></span></div>
+      <p>${icon.why}</p></button>`
+  }).join('')
+  $$('.mq-icon-opt').forEach((option) => { option.onclick = () => chooseIcon(option.dataset.icon) })
+  try { const savedIcon = localStorage.getItem(ICON_STORAGE_KEY); chooseIcon(savedIcon || DEFAULT_ICON) } catch (error) { console.warn('Sin almacenamiento local para el ícono', error) }
+
+  // ---------- lámina 7: ayuda estática ----------
+  const showHelp = (key) => {
+    $$('[data-help-tab]').forEach((tab) => tab.classList.toggle('on', tab.dataset.helpTab === key))
+    $('#mq-help').innerHTML = `<div class="dialog"><div class="dialog-head"><span class="dialog-title">${HELP[key][0]}</span><span class="dialog-x">×</span></div><div class="dialog-body">${HELP[key][1]()}</div></div>`
+  }
+  $$('[data-help-tab]').forEach((tab) => { tab.onclick = () => showHelp(tab.dataset.helpTab) })
+
+  // ---------- arranque ----------
+  MQ.initTheme()
+  MQ.onThemeChange(() => { paint(); if (state.view === 'settings') render() })
+  paint()
+  MQ.boot({ list: $('#mq-boot'), splash: $('#mq-splash'), button: $('#mq-replay'), onDone: () => { scenario('off'); toPrototype() } })
+  render()
+  showHelp('about')
+})()
+</script>

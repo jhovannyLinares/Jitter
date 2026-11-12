@@ -1,0 +1,505 @@
+<title>Maqueta de Jitter</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/*__APP_CSS__*/
+</style>
+<style>
+/*__MAQUETA_CSS__*/
+/* hueco del logo: todavía no hay logo del diseñador */
+.mq-logo { outline: 1px dashed var(--muted); outline-offset: -1px; border-radius: 22%; }
+/* propio de esta app (irá a su styles.css): ventana chica, botón de encendido, filas de horario */
+#app { width: 440px; height: 600px; }
+.win .view { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+.win .view-tabs { justify-content: center; }
+.win .power-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding-top: 6px; }
+.win .power { position: relative; width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--soft-line); background: var(--field); color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: border-color 0.2s, color 0.2s, box-shadow 0.2s; }
+.win .power:hover { border-color: color-mix(in srgb, var(--text-strong) 30%, transparent); }
+.win .power.on { border-color: var(--ok); color: var(--ok); box-shadow: 0 0 0 8px color-mix(in srgb, var(--ok) 14%, transparent); }
+.win .power.on::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid var(--ok); animation: pr-ring 2.4s ease-out infinite; }
+.win .power.wait { border-style: dashed; }
+.win .power.paused { border-color: var(--warn); color: var(--warn); }
+.win .power.err { border-color: var(--err); color: var(--err); }
+.win .power.small { width: 76px; height: 76px; cursor: default; }
+.win .power.small svg { width: 32px; height: 32px; }
+@keyframes pr-ring { from { opacity: 0.7; transform: scale(1); } to { opacity: 0; transform: scale(1.35); } }
+@media (prefers-reduced-motion: reduce) { .win .power.on::after { animation: none; opacity: 0; } }
+.win .power-label { color: var(--text-strong); font-size: var(--fs-md); font-weight: 600; }
+.win .power-wrap .hint { max-width: 330px; line-height: 1.5; }
+.win .setting { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border: 1px solid var(--soft-line); border-radius: 4px; background: var(--panel); }
+.win .setting h4 { margin: 0; color: var(--text-strong); font-size: var(--fs-base); font-weight: 600; }
+.win .check { display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; cursor: pointer; }
+.win .check input { margin-top: 1px; }
+.win .check small { display: block; color: var(--muted); font-size: var(--fs-sm); }
+.win .inline-num { width: 52px; height: 26px; padding: 0 6px; text-align: center; }
+.win .sched-row { display: grid; grid-template-columns: 112px 1fr auto 1fr; gap: 8px; align-items: center; }
+.win .sched-row input[type='time'] { height: 28px; padding: 0 6px; min-width: 0; }
+.win .sched-row.off { opacity: 0.45; }
+.win .stats { padding: 0; }
+.win .notice { margin: 0; }
+.win .kbd-line { display: flex; gap: 4px; align-items: center; }
+.mq-states .win { width: 100%; padding: 16px; background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.mq-static .dialog { max-width: 100%; }
+.mq-scale td:first-child { white-space: nowrap; }
+/* lámina 1: propuestas de ícono (ratón); al elegir una, deja de verse el hueco punteado */
+.mq-has-logo .mq-logo { outline: none; border-radius: 0; }
+.mq-icon-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.mq-icon-opt { all: unset; box-sizing: border-box; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: var(--panel); }
+.mq-icon-opt:hover { border-color: var(--muted); }
+.mq-icon-opt:focus-visible { outline: 2px solid var(--accent); }
+.mq-icon-opt.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.mq-icon-opt b { color: var(--text-strong); }
+.mq-icon-opt p { margin: 0; color: var(--muted); font-size: var(--fs-sm); line-height: 1.45; }
+.mq-icon-row { display: flex; align-items: flex-end; gap: 14px; }
+.mq-icon-row img { display: block; }
+.mq-icon-row .tray { padding: 6px; border-radius: 4px; background: var(--bar); }
+</style>
+
+<main class="mq-page">
+  <header class="mq-masthead">
+    <span class="mq-logo" style="width:72px;height:72px" role="img" aria-label="Logo de Jitter"></span>
+    <div>
+      <h1>Jitter</h1>
+      <p>Lo construido en <code>src/renderer</code>, versión 0.1.0: una app de bandeja que simula actividad cada pocos minutos para que el equipo no pase a «Ausente», con un botón para encenderla y apagarla, temporizador, horario y atajo de teclado. Diseño de la familia con los colores del logo. Datos de ejemplo: ninguno es real.</p>
+    </div>
+    <dl class="mq-stamp">
+      <dt>Nivel</dt><dd>Diseño final</dd>
+      <dt>Fase</dt><dd>0.1.0 · construido</dd>
+      <dt>Spec</dt><dd>README.md · tests/</dd>
+      <dt>Ventana</dt><dd>440×600 · mín 400×540</dd>
+      <dt>Fecha</dt><dd>2026-11-09</dd>
+    </dl>
+  </header>
+
+  <nav class="mq-toc" aria-label="Láminas">
+    <a href="#identidad">1 · Identidad</a><a href="#carga">2 · Carga</a><a href="#flujo">3 · Flujo</a><a href="#prototipo">4 · Prototipo</a><a href="#estados">5 · Estados</a><a href="#bandeja">6 · Bandeja y avisos</a><a href="#ayuda">7 · Ayuda y Acerca de</a>
+    <div class="mq-theme" role="group" aria-label="Tema">
+      <button type="button" data-theme-choice="system">Sistema</button><button type="button" data-theme-choice="dark">Oscuro</button><button type="button" data-theme-choice="light">Claro</button>
+    </div>
+  </nav>
+
+  <!-- ============ 1 · IDENTIDAD ============ -->
+  <section class="mq-sheet" id="identidad">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 1</span><h2>Identidad: logo, ícono, paleta y letra</h2><span class="mq-seal built">Construido</span><span class="mq-src">resources/logo.png · src/renderer/src/tokens.css</span></div>
+    <p class="mq-lede">El logo es el ratoncito (propuesta C), elegido entre cuatro; las otras tres quedan abajo para comparar. Desde él se generan el ícono (16 a 256 px) y los colores de marca: el índigo sale de su cuerpo. Verde, ámbar y rojo son estados y no cambian.</p>
+    <div class="mq-two">
+      <div class="mq-board">
+        <span class="mq-cap">Tamaños del ícono</span>
+        <div class="mq-sizes">
+          <figure><span class="mq-logo" style="width:128px;height:128px"></span><figcaption>128</figcaption></figure>
+          <figure><span class="mq-logo" style="width:64px;height:64px"></span><figcaption>64</figcaption></figure>
+          <figure><span class="mq-logo" style="width:48px;height:48px"></span><figcaption>48</figcaption></figure>
+          <figure><span class="mq-logo" style="width:32px;height:32px"></span><figcaption>32</figcaption></figure>
+          <figure><span class="mq-logo" style="width:24px;height:24px"></span><figcaption>24</figcaption></figure>
+          <figure><span class="mq-logo" style="width:16px;height:16px"></span><figcaption>16</figcaption></figure>
+        </div>
+        <span class="mq-cap">En la bandeja: el ícono lleva un punto de estado</span>
+        <div class="mq-taskbar" aria-hidden="true"><div class="mq-slot"><span class="mq-ghost"></span></div><div class="mq-slot on"><span class="mq-logo" style="width:24px;height:24px"></span></div><div class="mq-slot"><span class="mq-ghost"></span></div></div>
+        <dl class="mq-uses">
+          <dt>resources/logo.png</dt><dd>Emblema 512 px del diseñador: ícono, carga, Acerca de</dd>
+          <dt>build/icon.ico</dt><dd>16 a 256 px, lo genera build/icono.mjs</dd>
+          <dt>resources/tray-on.png · tray-off.png</dt><dd>Ícono de bandeja con punto verde (encendido) o sin punto (apagado), derivados del logo</dd>
+        </dl>
+      </div>
+      <div class="mq-board">
+        <span class="mq-cap">Paleta · noche (por defecto)</span>
+        <div class="mq-swatches" id="mq-sw-dark"></div>
+        <span class="mq-cap">Paleta · día</span>
+        <div class="mq-swatches" id="mq-sw-light"></div>
+      </div>
+    </div>
+    <div class="mq-board">
+      <span class="mq-cap">Propuestas de ícono: elegida la C · clic en otra para comparar</span>
+      <div class="mq-icon-options" id="mq-icon-options"></div>
+      <p class="mq-note">Cada una se ve a 64, 32 y 16 px y en la bandeja: a 16 px es donde se nota si se entiende. Son bocetos de dirección; el archivo final (SVG + PNG 512) sale de la elegida.</p>
+    </div>
+    <div class="mq-board">
+      <span class="mq-cap">Tipografía: Open Sans en la interfaz, Cascadia Mono en atajos y registro</span>
+      <div class="mq-table-scroll"><table class="mq-table mq-scale"><thead><tr><th>Token</th><th>Valor</th><th>Muestra</th></tr></thead><tbody id="mq-scale"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · CARGA ============ -->
+  <section class="mq-sheet" id="carga">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 2</span><h2>Pantalla de carga y arranque</h2><span class="mq-seal built">Construido</span><span class="mq-src">src/main/splash.ts · src/main/index.ts</span></div>
+    <p class="mq-lede">Al abrirla a mano se ve la carga. Al iniciar con Windows no hay carga ni ventana: la app aparece directo en la bandeja, en el estado que diga Configuración.</p>
+    <div class="mq-board">
+      <div class="mq-splash-wrap">
+        <div class="mq-splash" id="mq-splash"><span class="mq-logo"></span><h4>Jitter</h4><p>Preparando…</p><span class="dims">260 × 480</span></div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <ol class="mq-timeline" id="mq-boot">
+            <li><span class="mq-n">1</span><div><b>Instancia única</b><span><code>requestSingleInstanceLock()</code>: si ya está abierta, muestra esa ventana y esta se cierra.</span></div></li>
+            <li><span class="mq-n">2</span><div><b>Se abre la pantalla de carga</b><span><code>openSplash()</code>, oculta hasta <code>ready-to-show</code>, con el fondo del tema guardado. Se salta si el arranque viene de Windows (<code>--hidden</code>).</span></div></li>
+            <li><span class="mq-n">3</span><div><b>Lee las preferencias</b><span><code>loadPreferences()</code> de <code>%APPDATA%\Jitter\preferences.json</code>; si están rotas, vuelve a lo de fábrica y lo anota en el registro.</span></div></li>
+            <li><span class="mq-n">4</span><div><b>Decide el estado inicial</b><span><code>startupState()</code>: apagado, el último que tenía o según el horario.</span></div></li>
+            <li><span class="mq-n">5</span><div><b>Bandeja, atajo y ventana</b><span><code>createTray()</code>, <code>globalShortcut.register('Ctrl+Alt+P')</code>; el renderer pinta y llama a <code>app:ready</code>.</span></div></li>
+            <li><span class="mq-n">6</span><div><b>Se cierra sin parpadeo</b><span><code>closeWhenSeen()</code> la deja al menos <code>SPLASH_MIN_MS</code> (400 ms).</span></div></li>
+          </ol>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button type="button" class="mq-btn primary" id="mq-replay">Ver el arranque</button><span class="mq-note">Recorre los pasos y abre el prototipo en Inicio.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · FLUJO ============ -->
+  <section class="mq-sheet" id="flujo">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 3</span><h2>Flujo entre pantallas</h2><span class="mq-seal built">Construido</span><span class="mq-src">App.tsx · tray.ts · activity.ts</span></div>
+    <p class="mq-lede">Cada fila es un recorrido: qué lo dispara, por dónde pasa y cómo termina. «Probar» deja el prototipo en ese punto.</p>
+    <div class="mq-legend"><span class="mq-step screen">Pantalla</span><span class="mq-step">Acción o diálogo</span><span class="mq-step sys">Windows</span><span class="mq-step own">Simulador de actividad</span></div>
+    <div class="mq-flows" id="mq-flows"></div>
+  </section>
+
+  <!-- ============ 4 · PROTOTIPO ============ -->
+  <section class="mq-sheet" id="prototipo">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 4</span><h2>Prototipo navegable</h2><span class="mq-seal built">Construido</span><span class="mq-src">440 × 600 · se desplaza de lado en pantallas angostas</span></div>
+    <p class="mq-lede">El botón redondo enciende y apaga. Debajo se elige hasta cuándo. Horario lo enciende y apaga solo por días y horas; Configuración fija cada cuánto simula actividad y cómo. Los menús, el tema y los diálogos funcionan. Cerrar la ventana no apaga nada: la app sigue en la bandeja (lámina 6).</p>
+    <div class="mq-proto-bar">
+      <button type="button" class="mq-btn small" data-scenario="sample">Encendida 1 h</button>
+      <button type="button" class="mq-btn small" data-scenario="off">Apagada</button>
+      <button type="button" class="mq-btn small" data-scenario="schedule">Fuera de horario</button>
+      <button type="button" class="mq-btn small" data-scenario="locked">Pantalla bloqueada</button>
+      <button type="button" class="mq-btn small" data-scenario="first">Primer uso</button>
+      <span class="mq-tag">Datos de ejemplo</span>
+    </div>
+    <div class="mq-window-scroll">
+      <div class="mq-window">
+        <div class="mq-titlebar"><span class="mq-logo"></span>Jitter<div class="ctl" aria-hidden="true"><span>—</span><span>▢</span><span>✕</span></div></div>
+        <div class="win" id="app"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · ESTADOS ============ -->
+  <section class="mq-sheet" id="estados">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 5</span><h2>Estados del botón de encendido</h2><span class="mq-seal built">Construido</span><span class="mq-src">PowerButton · StatusBadge · tray.ts</span></div>
+    <p class="mq-lede">El estado se lee por forma, color y texto a la vez: anillo lleno, punteado o de color, y siempre una insignia que lo dice. El ícono de la bandeja repite el mismo estado.</p>
+    <div class="mq-states" id="mq-states"></div>
+  </section>
+
+  <!-- ============ 6 · BANDEJA ============ -->
+  <section class="mq-sheet" id="bandeja">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 6</span><h2>Bandeja del sistema, atajo y avisos</h2><span class="mq-seal built">Construido</span><span class="mq-src">src/main/tray.ts · src/main/notifier.ts</span></div>
+    <p class="mq-lede">La app vive en la bandeja: casi todo se hace desde ahí sin abrir la ventana. Clic izquierdo en el ícono cambia encendido/apagado; clic derecho abre el menú. <kbd class="mq-mono">Ctrl+Alt+P</kbd> hace lo mismo desde cualquier programa. «Salir» apaga el simulador y cierra todos los procesos. La bandeja y los avisos son de Windows: aquí se dibujan con los colores de la página.</p>
+    <div class="mq-two">
+      <div class="mq-board">
+        <span class="mq-cap">Clic derecho sobre el ícono</span>
+        <div class="mq-tray-stage">
+          <div class="mq-tray-menu"><span>Jitter · Encendida</span><hr><span>Apagar  Ctrl+Alt+P</span><span>Encender durante 30 min</span><span>Encender durante 1 h</span><span>Encender durante 2 h</span><span>Encender hasta las 18:00</span><hr><span>Seguir el horario ✓</span><span>Abrir la ventana</span><hr><span>Salir</span></div>
+          <div class="mq-tray-bar"><span>^</span><div class="mq-slot"><span class="mq-logo" style="width:18px;height:18px"></span></div><span>ESP</span><div class="clock">14:43<br>09/11/2026</div></div>
+        </div>
+        <p class="mq-note">Al pasar el mouse por el ícono: «Jitter: encendida, se apaga a las 15:43».</p>
+      </div>
+      <div class="mq-board">
+        <span class="mq-cap">Avisos (se pueden apagar en Configuración)</span>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="mq-winnote"><header><span class="mq-logo" style="width:16px;height:16px"></span>Jitter</header><b>Se apagó: terminó la hora</b><p>Desde ahora Windows cuenta la inactividad de forma normal.</p><div class="acts"><button class="mq-btn small" type="button">Otra hora</button><button class="mq-btn small" type="button">Dejar apagada</button></div></div>
+          <div class="mq-winnote"><header><span class="mq-logo" style="width:16px;height:16px"></span>Jitter</header><b>Fuera del horario</b><p>Se apagó a las 18:00. Se enciende mañana a las 08:30.</p></div>
+          <div class="mq-winnote"><header><span class="mq-logo" style="width:16px;height:16px"></span>Jitter</header><b>Encendida con Ctrl+Alt+P</b><p>Simula actividad cada 4 minutos hasta que la apagues.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · AYUDA ============ -->
+  <section class="mq-sheet" id="ayuda">
+    <div class="mq-sheet-head"><span class="mq-no">LÁMINA 7</span><h2>Ayuda y Acerca de</h2><span class="mq-seal built">Construido</span><span class="mq-src">src/shared/help.ts · AboutDialog</span></div>
+    <p class="mq-lede">El menú Ayuda lleva Guía de uso (F1), Lo que conviene saber, Notas de la versión, Registro y Acerca de. Las versiones entre corchetes las lee la app al abrir el diálogo.</p>
+    <div class="mq-board">
+      <div class="mq-tabs" role="tablist" aria-label="Pantallas de la Ayuda">
+        <button type="button" data-help-tab="about" class="on">Acerca de</button><button type="button" data-help-tab="guide">Guía de uso</button><button type="button" data-help-tab="know">Lo que conviene saber</button><button type="button" data-help-tab="log">Registro</button>
+      </div>
+      <div class="mq-help-stage"><div class="win mq-static" id="mq-help" style="width:100%;max-width:620px"></div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+/*__MAQUETA_JS__*/
+</script>
+<script>
+(() => {
+  const { $, $$, escapeHtml } = MQ
+  const APP = 'Jitter'
+  const win = $('#app')
+  const SECONDS_PER_MINUTE = 60
+  const TICK_MS = 1000
+  const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+  const UNTIL_OPTIONS = [['until', 'Hasta que la apague'], ['30', '30 min'], ['60', '1 h'], ['120', '2 h'], ['hour', 'Hasta las 18:00']]
+  const POWER_ICON = '<svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v9"/><path d="M6.3 6.3a8 8 0 1 0 11.4 0"/></svg>'
+
+  const fresh = () => ({ view: 'home', on: true, until: '60', leftSeconds: 42 * SECONDS_PER_MINUTE, nextSeconds: 192, outside: false, locked: false, failed: false,
+    scheduleOn: false, intervalMinutes: 4, method: 'f15', startup: 'off', startWithWindows: false, notify: true, pulsesToday: 18, onForMinutes: 18 })
+  let state = fresh()
+
+  const clock = (seconds) => `${Math.floor(seconds / SECONDS_PER_MINUTE)}:${String(seconds % SECONDS_PER_MINUTE).padStart(2, '0')}`
+  const methodText = () => (state.method === 'f15' ? 'tecla F15' : 'mouse 1 píxel')
+
+  // ---------- el estado que se ve: una sola función lo decide para el botón, la insignia, la barra y la bandeja ----------
+  function look(s = state) {
+    if (s.failed) return { kind: 'err', label: 'Con error', badge: ['err', 'No pudo simular actividad'], hint: 'Windows rechazó la señal; puede ser una directiva del equipo. El detalle está en Ayuda → Registro.' }
+    if (s.on && s.locked) return { kind: 'paused', label: 'En pausa', badge: ['warn', 'Pantalla bloqueada'], hint: 'Con la pantalla bloqueada Windows marca Ausente igual. Sigue sola al desbloquear.' }
+    if (s.on) {
+      const timer = s.until === 'until' ? 'hasta que la apagues' : s.until === 'hour' ? 'hasta las 18:00' : `se apaga en ${clock(s.leftSeconds)}`
+      return { kind: 'on', label: 'Encendida', badge: ['ok', `Activa · próxima señal en ${clock(s.nextSeconds)}`], hint: `Simula actividad cada ${s.intervalMinutes} minutos con la ${methodText()}, ${timer}.` }
+    }
+    if (s.scheduleOn && s.outside) return { kind: 'wait', label: 'Esperando horario', badge: ['', 'Se enciende mañana a las 08:30'], hint: 'Fuera del horario está apagada. El botón la enciende igual hasta la próxima hora de corte.' }
+    return { kind: '', label: 'Apagada', badge: ['', 'Apagada'], hint: 'Windows cuenta la inactividad de forma normal.' }
+  }
+
+  // ---------- vistas ----------
+  function homeView() {
+    const current = look()
+    const chips = UNTIL_OPTIONS.map(([value, text]) => `<button type="button" class="chip${state.until === value ? ' on' : ''}" data-until="${value}">${text}</button>`).join('')
+    const lockedNotice = state.on && state.locked ? '<div class="notice warn">La pantalla está bloqueada: Windows no cuenta actividad hasta que la desbloquees.</div>' : ''
+    return `<div class="power-wrap">
+        <button type="button" class="power ${current.kind}" id="pr-power" aria-pressed="${state.on}" title="${state.on ? 'Apagar' : 'Encender'} (Ctrl+Alt+P)">${POWER_ICON}</button>
+        <div class="power-label">${current.label}</div>
+        <span class="badge ${current.badge[0]}"><span class="dot"></span>${current.badge[1]}</span>
+        <p class="hint">${current.hint}</p>
+      </div>
+      ${lockedNotice}
+      <div class="field"><span class="label">¿Hasta cuándo?</span><div class="chips">${chips}</div></div>
+      <div class="stats"><div class="stat accent"><b>${state.onForMinutes} min</b><span>encendida en esta sesión</span></div><div class="stat"><b>${state.pulsesToday}</b><span>señales enviadas hoy</span></div></div>`
+  }
+
+  function scheduleView() {
+    const rows = DAYS.map((day, index) => {
+      const weekday = index < 5
+      return `<div class="sched-row${weekday ? '' : ' off'}"><label class="check"><input type="checkbox" ${weekday ? 'checked' : ''}>${day}</label>
+        <input type="time" value="${weekday ? '08:30' : ''}" aria-label="${day} desde"><span class="muted">a</span><input type="time" value="${weekday ? '18:00' : ''}" aria-label="${day} hasta"></div>`
+    }).join('')
+    return `<div class="list-head" style="padding:0"><span class="list-title">Horario</span></div>
+      <label class="check"><input type="checkbox" id="pr-sched" ${state.scheduleOn ? 'checked' : ''}><span>Encender y apagar sola según este horario.<small>Fuera del horario se apaga y la bandeja lo muestra en gris.</small></span></label>
+      <div class="setting">${rows}</div>
+      <p class="hint">El botón de Inicio siempre gana: la enciende o apaga a mano hasta la próxima hora del horario.</p>`
+  }
+
+  function settingsView() {
+    const theme = $('.mq-theme button.on')?.dataset.themeChoice || 'system'
+    const segmented = (id, options, current) => `<div class="segmented" id="${id}">${options.map(([value, text]) => `<button type="button" data-value="${value}" class="${current === value ? 'on' : ''}">${text}</button>`).join('')}</div>`
+    return `<div class="list-head" style="padding:0"><span class="list-title">Configuración</span></div>
+      <div class="setting"><h4>Actividad</h4>
+        <label class="check"><span>Simular actividad cada <input class="inline-num" type="number" min="1" max="14" value="${state.intervalMinutes}" id="pr-interval"> minutos.<small>Teams pasa a Ausente a los 5 minutos sin actividad: con 4 alcanza.</small></span></label>
+        <span class="label">Cómo</span>${segmented('pr-method', [['f15', 'Tecla F15'], ['mouse', 'Mover el mouse 1 píxel']], state.method)}
+        <p class="hint">${state.method === 'f15' ? 'F15 es una tecla que no existe en el teclado: no escribe nada ni mueve el cursor.' : 'Mueve el cursor un píxel y lo devuelve. Se nota si estás dibujando o arrastrando.'}</p>
+      </div>
+      <div class="setting"><h4>Al iniciar</h4>
+        <label class="check"><input type="checkbox" ${state.startWithWindows ? 'checked' : ''}><span>Abrir con Windows, en la bandeja y sin ventana.</span></label>
+        <label class="check"><input type="checkbox" checked><span>Al cerrar la ventana, seguir en la bandeja.</span></label>
+        <span class="label">Estado al abrir</span>${segmented('pr-startup', [['off', 'Apagada'], ['last', 'Como la dejé'], ['schedule', 'Según el horario']], state.startup)}
+      </div>
+      <div class="setting"><h4>Avisos y atajo</h4>
+        <label class="check"><input type="checkbox" ${state.notify ? 'checked' : ''}><span>Avisarme cuando se apague sola.</span></label>
+        <div class="kbd-line"><span>Encender y apagar con</span><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd></div>
+      </div>
+      <div class="setting"><h4>Apariencia</h4>
+        <span class="label">Tema</span>${segmented('pr-theme', [['system', 'Sistema'], ['dark', 'Oscuro'], ['light', 'Claro']], theme)}
+        <span class="label">Idioma</span>${segmented('pr-lang', [['system', 'Sistema'], ['es', 'Español'], ['en', 'English']], 'system')}
+      </div>`
+  }
+
+  const VIEWS = { home: ['Inicio', homeView], schedule: ['Horario', scheduleView], settings: ['Configuración', settingsView] }
+
+  function render() {
+    const current = look()
+    const tone = { on: 'tone-ok', paused: 'tone-warn', err: 'tone-err' }[current.kind] || 'tone-off'
+    const tabs = Object.entries(VIEWS).map(([key, [title]]) => `<button type="button" data-view="${key}" class="${state.view === key ? 'on' : ''}">${title}</button>`).join('')
+    win.innerHTML = `<div class="app">
+      <div class="topbar"><span class="mq-logo" style="width:18px;height:18px"></span><div class="menubar" id="pr-menubar"></div>
+        </div>
+      <div class="toolbar view-tabs"><div class="segmented">${tabs}</div></div>
+      <div class="view">${VIEWS[state.view][1]()}</div>
+      <div class="statusbar"><span class="${tone}">● ${current.label}</span><span>${state.on ? `Señal cada ${state.intervalMinutes} min · ${methodText()}` : 'Sin señales'}</span><span class="statusbar-right">Hoy: ${state.pulsesToday} señales</span></div>
+    </div>`
+    MQ.menubar($('#pr-menubar', win), MENUS)
+    wire()
+  }
+
+  function wire() {
+    $$('[data-view]', win).forEach((button) => { button.onclick = () => { state.view = button.dataset.view; render() } })
+    const power = $('#pr-power', win)
+    if (power) power.onclick = togglePower
+    $$('[data-until]', win).forEach((chip) => { chip.onclick = () => {
+      state.until = chip.dataset.until
+      state.leftSeconds = Number(chip.dataset.until) * SECONDS_PER_MINUTE || 0
+      if (!state.on) togglePower(); else render()
+    } })
+    const schedule = $('#pr-sched', win)
+    if (schedule) schedule.onchange = () => { state.scheduleOn = schedule.checked; render() }
+    const interval = $('#pr-interval', win)
+    if (interval) interval.onchange = () => { state.intervalMinutes = Math.max(1, Math.min(14, Number(interval.value) || 4)); render() }
+    const segmentHandlers = { 'pr-method': (value) => { state.method = value }, 'pr-startup': (value) => { state.startup = value }, 'pr-theme': (value) => MQ.applyTheme(value), 'pr-lang': () => {} }
+    Object.entries(segmentHandlers).forEach(([id, apply]) => {
+      $$(`#${id} button`, win).forEach((button) => { button.onclick = () => { apply(button.dataset.value); render() } })
+    })
+  }
+
+  function togglePower() {
+    state.on = !state.on
+    state.failed = false
+    if (state.on) { state.nextSeconds = state.intervalMinutes * SECONDS_PER_MINUTE; state.outside = false }
+    render()
+    MQ.toast(win, state.on ? `<b>Encendida</b> Simula actividad cada ${state.intervalMinutes} minutos.` : '<b>Apagada</b> Windows cuenta la inactividad de forma normal.')
+  }
+
+  // ---------- reloj del prototipo: la cuenta regresiva y la próxima señal avanzan de verdad ----------
+  setInterval(() => {
+    if (!state.on || state.locked || state.failed) return
+    state.nextSeconds -= 1
+    if (state.nextSeconds <= 0) { state.nextSeconds = state.intervalMinutes * SECONDS_PER_MINUTE; state.pulsesToday += 1 }
+    if (!['until', 'hour'].includes(state.until)) {
+      state.leftSeconds -= 1
+      if (state.leftSeconds <= 0) { state.on = false; render(); MQ.toast(win, '<b>Se apagó: terminó el tiempo</b>'); return }
+    }
+    const badge = $('.power-wrap .badge', win)
+    const hint = $('.power-wrap .hint', win)
+    if (badge && state.view === 'home') { const current = look(); badge.innerHTML = `<span class="dot"></span>${current.badge[1]}`; hint.textContent = current.hint }
+  }, TICK_MS)
+
+  // ---------- diálogos de la app ----------
+  const aboutBody = () => `<div class="about-head"><span class="mq-logo logo"></span><div><div class="about-name">${APP}</div><div class="muted">Versión 0.1.0 · Mantiene tu estado activo mientras trabajas.</div></div></div>
+    <table class="about-table">
+      <tr><th colspan="2">Con qué corre</th></tr><tr><td>Electron</td><td>[versión]</td></tr><tr><td>Chromium · Node</td><td>[versión] · [versión]</td></tr><tr><td>Windows</td><td>[versión]</td></tr>
+      <tr><th colspan="2">Dónde guarda</th></tr><tr><td>Datos</td><td class="mono">%APPDATA%\\Jitter\\ <button type="button" class="link-btn">Abrir</button></td></tr><tr><td>Registro</td><td class="mono">logs\\jitter.log <button type="button" class="link-btn">Abrir</button></td></tr>
+      <tr><th colspan="2">Código abierto incluido</th></tr><tr><td>Electron</td><td>MIT</td></tr><tr><td>React</td><td>MIT</td></tr><tr><td>Open Sans</td><td>OFL 1.1</td></tr>
+    </table>
+    <div class="row"><button type="button" class="link-btn">Notas de la versión</button><button type="button" class="link-btn">Guía de uso</button><button type="button" class="link-btn">Repositorio</button></div>
+    <div class="hint">© 2026 [Autor] · Licencia [por definir]</div>`
+  const guideBody = () => `<p><b>Encender y apagar.</b> El botón redondo de Inicio, clic izquierdo en el ícono de la bandeja o <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> desde cualquier programa.</p>
+    <p><b>Por un rato.</b> Elige 30 min, 1 h, 2 h o «Hasta las 18:00»: al terminar se apaga sola y te avisa.</p>
+    <p><b>Por horario.</b> En Horario marca los días y las horas. Fuera de ellas se apaga sola; el botón la enciende igual hasta la próxima hora del horario.</p>
+    <p><b>Cerrar no es salir.</b> Cerrar la ventana la deja en la bandeja. Para terminarla del todo: bandeja → Salir, o Archivo → Salir.</p>`
+  const knowBody = () => `<div class="warn-box">Simular actividad en un equipo de la empresa puede ir contra su política de uso. Antes de usarla, revísala.</div>
+    <p><b>La pantalla bloqueada gana.</b> Si bloqueas el equipo (Win+L) o se bloquea solo por directiva, Teams te marca Ausente igual. La app no lo evita.</p>
+    <p><b>No escribe nada.</b> La tecla F15 no existe en el teclado: ningún programa la usa. Si prefieres, en Configuración puedes cambiarla por mover el mouse 1 píxel.</p>
+    <p><b>Sin administrador.</b> Se instala solo para tu usuario y no instala servicios.</p>`
+  const logBody = () => `<div class="value-full" style="max-height:220px;user-select:text">{"t":"14:31:02","lvl":"INFO","op":"power","on":true,"until":"60m","by":"shortcut"}
+{"t":"14:35:02","lvl":"DEBUG","op":"pulse","method":"f15"}
+{"t":"14:39:02","lvl":"DEBUG","op":"pulse","method":"f15"}
+{"t":"14:40:10","lvl":"INFO","op":"session","event":"lock","action":"pause"}
+{"t":"14:42:55","lvl":"INFO","op":"session","event":"unlock","action":"resume"}</div>
+    <div class="row"><button type="button" class="btn small">Copiar</button><button type="button" class="btn small">Abrir la carpeta</button></div>`
+  const welcomeBody = () => `<p>${APP} envía a Windows cada pocos minutos una señal de actividad, para que el equipo no pase a «Ausente» mientras lees o estás en una llamada sin tocar el teclado.</p>
+    <p>Arranca <b>apagada</b>. Enciéndela con el botón redondo, desde la bandeja o con <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>.</p>
+    <div class="warn-box">En un equipo de la empresa, revisa antes su política de uso.</div>`
+
+  const HELP = { about: ['Acerca de', aboutBody], guide: ['Guía de uso', guideBody], know: ['Lo que conviene saber', knowBody], log: ['Registro', logBody] }
+  const openHelp = (key) => MQ.dialog(win, { title: HELP[key][0], body: HELP[key][1](), wide: key === 'log' })
+  const goView = (view) => { state.view = view; render() }
+
+  const MENUS = {
+    Archivo: [['Encender o apagar', 'Ctrl+Alt+P', togglePower], ['Cerrar la ventana (sigue en la bandeja)', 'Ctrl+W', () => MQ.toast(win, '<b>Sigue en la bandeja</b> Clic en el ícono para volver.')], null, ['Salir', 'Ctrl+Q', () => MQ.toast(win, '<b>Salir</b> Apaga el simulador y cierra la app del todo.')]],
+    Editar: [['Copiar', 'Ctrl+C', null], ['Seleccionar todo', 'Ctrl+A', null]],
+    Ver: [['Inicio', 'Ctrl+1', () => goView('home')], ['Horario', 'Ctrl+2', () => goView('schedule')]],
+    Herramientas: [['Configuración', 'Ctrl+,', () => goView('settings')]],
+    Ayuda: [['Guía de uso', 'F1', () => openHelp('guide')], ['Lo que conviene saber', '', () => openHelp('know')], ['Notas de la versión', '', () => MQ.dialog(win, { title: 'Notas de la versión', body: '<p><b>0.1.0</b> · Primera versión: encendido, temporizador, horario, bandeja y atajo.</p>' })], ['Registro', '', () => openHelp('log')], null, ['Acerca de', '', () => openHelp('about')]],
+  }
+
+  // ---------- escenarios ----------
+  const SCENARIOS = {
+    sample: () => {},
+    off: () => { state.on = false },
+    schedule: () => { state.on = false; state.scheduleOn = true; state.outside = true },
+    locked: () => { state.locked = true; state.until = 'until' },
+    first: () => { state.on = false; state.pulsesToday = 0; state.onForMinutes = 0 },
+  }
+  function scenario(name) {
+    state = fresh()
+    SCENARIOS[name]()
+    render()
+    if (name === 'first') MQ.dialog(win, { title: `Bienvenida a ${APP}`, body: welcomeBody(), foot: '<button type="button" class="btn primary" id="pr-ok">Entendido</button>' }) && ($('#pr-ok', win).onclick = () => $('.backdrop', win).remove())
+  }
+  $$('[data-scenario]').forEach((button) => { button.onclick = () => scenario(button.dataset.scenario) })
+  const toPrototype = () => $('#prototipo').scrollIntoView({ behavior: 'smooth' })
+
+  // ---------- lámina 1: paleta y escala ----------
+  const TOKENS = [['--bg', 'fondo'], ['--panel', 'superficie'], ['--line', 'bordes'], ['--text', 'texto'], ['--text-strong', 'texto fuerte'], ['--muted', 'secundario'], ['--brand', 'marca'], ['--accent', 'acción'], ['--accent-soft', 'selección'], ['--ok', 'encendida'], ['--warn', 'en pausa'], ['--err', 'error']]
+  const paint = () => { MQ.swatches($('#mq-sw-dark'), TOKENS, 'dark'); MQ.swatches($('#mq-sw-light'), TOKENS, 'light') }
+  const SCALE = [['--fs-xs', 'Etiquetas en mayúsculas, insignias'], ['--fs-sm', 'Ayudas, barra de estado, chips'], ['--fs-base', 'Texto, botones, menús'], ['--fs-md', 'Títulos de vista y estado del botón'], ['--fs-lg', 'Nombre en Acerca de'], ['--fs-xl', 'Cifras de las tarjetas']]
+  const rootStyle = getComputedStyle(document.documentElement)
+  $('#mq-scale').innerHTML = SCALE.map(([token, use]) => `<tr><td class="mq-mono">${token}</td><td>${rootStyle.getPropertyValue(token).trim()}</td><td style="font-size:var(${token})">${escapeHtml(use)}</td></tr>`).join('')
+
+  // ---------- lámina 5: estados ----------
+  const STATE_CASES = [
+    ['Apagada', { on: false }, 'Nadie la encendió, o la apagaste. Anillo neutro.'],
+    ['Encendida', { on: true, until: 'until' }, 'Envía la señal cada N minutos. Anillo verde que late (quieto si Windows pide menos movimiento).'],
+    ['Encendida con tiempo', { on: true, until: '60', leftSeconds: 41 * 60 + 58 }, 'Elegiste 30 min, 1 h o 2 h: la insignia muestra la cuenta y al llegar a cero se apaga y avisa.'],
+    ['Esperando horario', { on: false, scheduleOn: true, outside: true }, 'Horario activo y fuera de rango. Anillo punteado: se encenderá sola.'],
+    ['En pausa', { on: true, locked: true }, 'Pantalla bloqueada: no tiene sentido enviar señales. Sigue sola al desbloquear.'],
+    ['Con error', { on: true, failed: true }, 'Windows rechazó la señal (p. ej. una directiva). Anillo rojo y el detalle en el Registro.'],
+  ]
+  $('#mq-states').innerHTML = STATE_CASES.map(([title, patch, why]) => {
+    const current = look({ ...fresh(), ...patch })
+    return `<div class="mq-state"><div class="win"><span class="power small ${current.kind}">${POWER_ICON}</span><b class="strong">${current.label}</b><span class="badge ${current.badge[0]}"><span class="dot"></span>${current.badge[1]}</span></div><p class="mq-why"><b>${title}.</b> ${why}</p></div>`
+  }).join('')
+
+  // ---------- lámina 3: flujos ----------
+  MQ.flows($('#mq-flows'), [
+    { who: 'Encender ya', trigger: 'Clic en el botón redondo', steps: [['Inicio', 'screen'], ['Encendida', ''], ['Señal cada 4 min', 'own'], ['Mismo botón la apaga', '']], scenario: 'off' },
+    { who: 'Por un rato', trigger: 'Chip «1 h» en Inicio', steps: [['Inicio', 'screen'], ['Cuenta regresiva', 'own'], ['Se apaga sola', 'own'], ['Aviso de Windows', 'sys']], scenario: 'sample' },
+    { who: 'Desde la bandeja', trigger: 'Clic derecho en el ícono', steps: [['Menú de la bandeja', 'sys'], ['Encender durante 2 h', ''], ['Sin abrir la ventana', 'own']], anchor: '#bandeja' },
+    { who: 'Atajo', trigger: 'Ctrl+Alt+P en cualquier programa', steps: [['Atajo global', 'sys'], ['Cambia encendida/apagada', 'own'], ['Aviso corto', 'sys']], scenario: 'off' },
+    { who: 'Por horario', trigger: 'Horario → marcar días y horas', steps: [['Horario', 'screen'], ['Fuera de rango: apagada', 'own'], ['08:30: se enciende', 'own'], ['18:00: se apaga y avisa', 'sys']], scenario: 'schedule', view: 'schedule' },
+    { who: 'Pantalla bloqueada', trigger: 'Win+L o bloqueo por directiva', steps: [['Bloqueo de sesión', 'sys'], ['En pausa', 'own'], ['Desbloqueo', 'sys'], ['Sigue sola', 'own']], scenario: 'locked' },
+    { who: 'Arranque con Windows', trigger: 'Inicio de sesión', steps: [['Windows abre la app', 'sys'], ['Directo a la bandeja', 'own'], ['Estado según Configuración', 'own']], scenario: 'off', view: 'settings' },
+    { who: 'Primer uso', trigger: 'Termina el instalador', steps: [['Bienvenida', 'screen'], ['Entendido', ''], ['Inicio, apagada', 'screen']], scenario: 'first' },
+  ], (row) => {
+    if (row.anchor) { $(row.anchor).scrollIntoView({ behavior: 'smooth' }); return }
+    scenario(row.scenario)
+    if (row.view) goView(row.view)
+    toPrototype()
+  })
+
+  // ---------- lámina 1: propuestas de ícono (ratón). Colores fijos: el ícono se ve igual en los dos temas ----------
+  const INDIGO = '#4b5bd6'
+  const INDIGO_SOFT = '#9aa4ff'
+  const GREEN = '#4fbf6a'
+  const WHITE = '#ffffff'
+  const MOUSE_SPLIT = (x, top, width, cut) => `<path d="M${x} ${top}v${cut}M${x - width / 2} ${top + cut}h${width}" stroke="${WHITE}" stroke-width="2.5" opacity=".55"/>`
+  const ICONS = [
+    { id: 'clasico', name: 'A · Ratón clásico', why: 'El ratón de computadora tal cual: cuerpo, rueda y división de botones. El más directo; a 16 px queda una píldora.',
+      svg: `<rect x="18" y="6" width="28" height="52" rx="14" fill="${INDIGO}"/>${MOUSE_SPLIT(32, 6, 28, 18)}<rect x="29.5" y="11" width="5" height="9" rx="2.5" fill="${WHITE}"/>` },
+    { id: 'ondas', name: 'B · Ratón con señal', why: 'El ratón emite ondas verdes: dice «estoy enviando actividad». Las ondas sirven también para mostrar el encendido.',
+      svg: `<rect x="10" y="12" width="26" height="44" rx="13" fill="${INDIGO}"/>${MOUSE_SPLIT(23, 12, 26, 14)}<rect x="20.5" y="16" width="5" height="8" rx="2.5" fill="${WHITE}"/><path d="M44 22a14 14 0 0 1 0 20M51 15a23 23 0 0 1 0 34" fill="none" stroke="${GREEN}" stroke-width="4.5" stroke-linecap="round"/>` },
+    { id: 'animal', name: 'C · Ratoncito', why: 'Un ratón animal, geométrico y amable: orejas, ojos y nariz. Juega con el doble sentido y se reconoce a 16 px por las orejas.',
+      svg: `<circle cx="16" cy="20" r="11" fill="${INDIGO}"/><circle cx="48" cy="20" r="11" fill="${INDIGO}"/><circle cx="16" cy="20" r="5" fill="${INDIGO_SOFT}"/><circle cx="48" cy="20" r="5" fill="${INDIGO_SOFT}"/><ellipse cx="32" cy="39" rx="20" ry="18" fill="${INDIGO}"/><circle cx="25" cy="36" r="3" fill="${WHITE}"/><circle cx="39" cy="36" r="3" fill="${WHITE}"/><circle cx="32" cy="46" r="3.5" fill="#ff8fb1"/>` },
+    { id: 'presencia', name: 'D · Ratón disponible', why: 'Ratón con el círculo verde con ✓ de «Disponible» en la esquina. Cuenta para qué sirve sin palabras; el círculo puede apagarse en la bandeja.',
+      svg: `<rect x="12" y="4" width="30" height="54" rx="15" fill="${INDIGO}"/>${MOUSE_SPLIT(27, 4, 30, 20)}<rect x="24.5" y="9" width="5" height="10" rx="2.5" fill="${WHITE}"/><circle cx="46" cy="47" r="13" fill="${GREEN}" stroke="${WHITE}" stroke-width="3.5"/><path d="M40 47l4.5 4.5 7.5-8.5" fill="none" stroke="${WHITE}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>` },
+  ]
+  const ICON_STORAGE_KEY = 'mq-icon'
+  const DEFAULT_ICON = 'animal'
+  const iconUrl = (icon) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">${icon.svg}</svg>`)}`
+  function chooseIcon(id) {
+    const icon = ICONS.find((candidate) => candidate.id === id)
+    if (!icon) return
+    document.documentElement.style.setProperty('--mq-logo', `url("${iconUrl(icon)}")`)
+    document.documentElement.classList.add('mq-has-logo')
+    $$('.mq-icon-opt').forEach((option) => option.classList.toggle('on', option.dataset.icon === id))
+    try { localStorage.setItem(ICON_STORAGE_KEY, id) } catch (error) { console.warn('Sin almacenamiento local para el ícono', error) }
+  }
+  $('#mq-icon-options').innerHTML = ICONS.map((icon) => {
+    const url = iconUrl(icon)
+    return `<button type="button" class="mq-icon-opt" data-icon="${icon.id}"><b>${icon.name}</b>
+      <div class="mq-icon-row"><img src="${url}" width="64" height="64" alt=""><img src="${url}" width="32" height="32" alt=""><img src="${url}" width="16" height="16" alt=""><span class="tray"><img src="${url}" width="18" height="18" alt=""></span></div>
+      <p>${icon.why}</p></button>`
+  }).join('')
+  $$('.mq-icon-opt').forEach((option) => { option.onclick = () => chooseIcon(option.dataset.icon) })
+  try { const savedIcon = localStorage.getItem(ICON_STORAGE_KEY); chooseIcon(savedIcon || DEFAULT_ICON) } catch (error) { console.warn('Sin almacenamiento local para el ícono', error) }
+
+  // ---------- lámina 7: ayuda estática ----------
+  const showHelp = (key) => {
+    $$('[data-help-tab]').forEach((tab) => tab.classList.toggle('on', tab.dataset.helpTab === key))
+    $('#mq-help').innerHTML = `<div class="dialog"><div class="dialog-head"><span class="dialog-title">${HELP[key][0]}</span><span class="dialog-x">×</span></div><div class="dialog-body">${HELP[key][1]()}</div></div>`
+  }
+  $$('[data-help-tab]').forEach((tab) => { tab.onclick = () => showHelp(tab.dataset.helpTab) })
+
+  // ---------- arranque ----------
+  MQ.initTheme()
+  MQ.onThemeChange(() => { paint(); if (state.view === 'settings') render() })
+  paint()
+  MQ.boot({ list: $('#mq-boot'), splash: $('#mq-splash'), button: $('#mq-replay'), onDone: () => { scenario('off'); toPrototype() } })
+  render()
+  showHelp('about')
+})()
+</script>
